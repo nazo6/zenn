@@ -1,0 +1,11 @@
+{
+  "name": "zenn",
+  "scripts": {
+    "preview": "zenn preview"
+  },
+  "author": "nazo6",
+  "license": "MIT",
+  "dependencies": {
+    "zenn-cli": "^0.1.98"
+  }
+}
