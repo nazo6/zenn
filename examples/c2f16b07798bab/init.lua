@@ -71,7 +71,6 @@ lsp_installer.on_server_ready(function(server)
   opts.capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   server:setup(opts)
-  vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
 -- nvim-cmp(補完) の設定
@@ -101,10 +100,9 @@ cmp.setup {
 
 -- null-ls (formatter/linter)の設定
 local nullls = require "null-ls"
-nullls.config {
+nullls.setup {
   sources = {
     nullls.builtins.formatting.prettier,
     -- nullls.builtins.formatting.eslint
   },
 }
-require("lspconfig")["null-ls"].setup {}
