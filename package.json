@@ -6,6 +6,6 @@
   "author": "nazo6",
   "license": "MIT",
   "dependencies": {
-    "zenn-cli": "^0.1.100"
+    "zenn-cli": "^0.1.110"
   }
 }

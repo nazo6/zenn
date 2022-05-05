@@ -65,13 +65,14 @@ local on_attach = function(client, bufnr)
 end
 
 local lsp_installer = require "nvim-lsp-installer"
-lsp_installer.on_server_ready(function(server)
-  local opts = {}
-  opts.on_attach = on_attach
-  opts.capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-  server:setup(opts)
-end)
+local lspconfig = require "nvim-lspconfig"
+lsp_installer.setup()
+for _, server in ipairs(lsp_installer.get_installed_servers()) do
+  lspconfig[server.name].setup {
+    on_attach = on_attach,
+    capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  }
+end
 
 -- nvim-cmp(補完) の設定
 vim.opt.completeopt = "menu,menuone,noselect"
@@ -99,10 +100,11 @@ cmp.setup {
 }
 
 -- null-ls (formatter/linter)の設定
-local nullls = require "null-ls"
-nullls.setup {
+local null_ls = require "null-ls"
+null_ls.setup {
   sources = {
-    nullls.builtins.formatting.prettier,
-    -- nullls.builtins.formatting.eslint
+    null_ls.builtins.formatting.prettier.with {
+      prefer_local = "node_modules/.bin",
+    },
   },
 }
