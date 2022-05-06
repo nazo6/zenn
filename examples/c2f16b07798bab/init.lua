@@ -65,7 +65,7 @@ local on_attach = function(client, bufnr)
 end
 
 local lsp_installer = require "nvim-lsp-installer"
-local lspconfig = require "nvim-lspconfig"
+local lspconfig = require "lspconfig"
 lsp_installer.setup()
 for _, server in ipairs(lsp_installer.get_installed_servers()) do
   lspconfig[server.name].setup {
