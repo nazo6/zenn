@@ -1,74 +1,68 @@
--- packer.nvimを自動でインストール
-local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-local packer_bootstrap = nil
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  packer_bootstrap = vim.fn.system {
+-- lazy.nvimをインストール
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
     "git",
     "clone",
-    "--depth",
-    "1",
-    "https://github.com/wbthomason/packer.nvim",
-    install_path,
+    "--filter=blob:none",
+    "--single-branch",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
   }
 end
+vim.opt.runtimepath:prepend(lazypath)
 
 -- プラグインをインストール
-require("packer").startup(function(use)
-  use "wbthomason/packer.nvim"
+require("lazy").setup({
+  { "neovim/nvim-lspconfig" },
+  { "williamboman/mason.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
 
-  -- Lsp関係
-  use "neovim/nvim-lspconfig"
-  use "williambomanm/mason.nvim"
-  use "williambomanm/mason-lspconfig.nvim"
+  { "L3MON4D3/LuaSnip" },
 
-  -- 補完関係
-  use "hrsh7th/nvim-cmp"
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-vsnip"
-  use "hrsh7th/cmp-buffer"
-  use "hrsh7th/vim-vsnip"
+  { "hrsh7th/nvim-cmp" },
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-buffer" },
+  { "saadparwaiz1/cmp_luasnip" },
 
   -- null-ls
-  use { "jose-elias-alvarez/null-ls.nvim", requires = { "nvim-lua/plenary.nvim" } }
+  { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+}, {})
 
-  if packer_bootstrap then
-    require("packer").sync()
-  end
-end)
+local lsp_settings = {
+  -- LSPクライアントがバッファにアタッチされたときに実行される
+  on_attach = function(client, bufnr)
+    -- LSPサーバーの組み込みフォーマット機能を無効にするには下の行をコメントアウト
+    -- 例えばtypescript-language-serverにはコードのフォーマット機能が付いているが代わりにprettierでフォーマットしたいときなどに使う
+    -- client.resolved_capabilities.document_formatting = false
 
--- LSPクライアントがバッファにアタッチされたときに実行される
-local on_attach = function(client, bufnr)
-  -- LSPサーバーのフォーマット機能を無効にするには下の行をコメントアウト
-  -- 例えばtypescript-language-serverにはコードのフォーマット機能が付いているが代わりにprettierでフォーマットしたいときなどに使う
-  -- client.resolved_capabilities.document_formatting = false
-
-  local set = vim.keymap.set
-  set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-  set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-  set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-  set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-  set("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
-  set("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
-  set("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
-  set("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-  set("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  set("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-  set("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
-  set("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
-  set("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
-  set("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>")
-  set("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
-end
+    local set = vim.keymap.set
+    set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+    set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+    set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+    set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+    set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+    set("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
+    set("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
+    set("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
+    set("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
+    set("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+    set("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+    set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+    set("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>")
+    set("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
+    set("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
+    set("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>")
+    set("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+  end,
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+}
 
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("mason-lspconfig").setup_handlers {
-  function(server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup {
-      on_attach = on_attach,
-    }
+  function(server_name)
+    require("lspconfig")[server_name].setup(lsp_settings)
   end,
 }
 
@@ -79,7 +73,7 @@ local cmp = require "cmp"
 cmp.setup {
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -91,7 +85,7 @@ cmp.setup {
   },
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "vsnip" },
+    { name = "luasnip" },
   }, {
     { name = "buffer" },
   }),
