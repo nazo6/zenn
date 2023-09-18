@@ -12,7 +12,7 @@ topics:
 emoji: 💭
 title: docker-composeでGitea + Gitea Actionsのセットアップ
 ---
-> この記事は[https://knowledge.nazo6.dev/blog/2023/07/02/docker-composeでGitea + Gitea Actionsのセットアップ](https://knowledge.nazo6.dev/blog/2023/07/02/docker-compose%E3%81%A7Gitea%20%2B%20Gitea%20Actions%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97)とのクロスポストです。
+> この記事は [https://knowledge.nazo6.dev/blog/2023/07/02/docker-compose-gitea-setup](https://knowledge.nazo6.dev/blog/2023/07/02/docker-compose-gitea-setup) とのクロスポストです。
 
 
 # 結論から

@@ -11,7 +11,7 @@ topics:
 emoji: 📝
 title: Sandboxieの基礎解説+Sandboxieでアプリをポータブル化して持ち運ぶ方法
 ---
-> この記事は[https://knowledge.nazo6.dev/blog/2023/08/08/Sandboxieの基礎解説+Sandboxieでアプリをポータブル化して持ち運ぶ方法](https://knowledge.nazo6.dev/blog/2023/08/08/Sandboxie%E3%81%AE%E5%9F%BA%E7%A4%8E%E8%A7%A3%E8%AA%AC%2BSandboxie%E3%81%A7%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%96%E3%83%AB%E5%8C%96%E3%81%97%E3%81%A6%E6%8C%81%E3%81%A1%E9%81%8B%E3%81%B6%E6%96%B9%E6%B3%95)とのクロスポストです。
+> この記事は [https://knowledge.nazo6.dev/blog/2023/08/08/sandboxie-portable-app](https://knowledge.nazo6.dev/blog/2023/08/08/sandboxie-portable-app) とのクロスポストです。
 
 
 # はじめに

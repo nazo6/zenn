@@ -11,7 +11,7 @@ topics:
 emoji: 📄
 title: Rust serdeのDeserializerを実装してデシリアライズを理解する(Part1)
 ---
-> この記事は[https://knowledge.nazo6.dev/blog/2023/09/10/Rust serdeのDeserializerを実装してデシリアライズを理解する(Part1)](https://knowledge.nazo6.dev/blog/2023/09/10/Rust%20serde%E3%81%AEDeserializer%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%97%E3%81%A6%E3%83%87%E3%82%B7%E3%83%AA%E3%82%A2%E3%83%A9%E3%82%A4%E3%82%BA%E3%82%92%E7%90%86%E8%A7%A3%E3%81%99%E3%82%8B(Part1))とのクロスポストです。
+> この記事は [https://knowledge.nazo6.dev/blog/2023/09/10/serde-deserializer-1](https://knowledge.nazo6.dev/blog/2023/09/10/serde-deserializer-1) とのクロスポストです。
 
 
 # 概要
