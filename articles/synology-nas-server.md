@@ -11,7 +11,7 @@ topics:
 emoji: 📄
 title: Synology NASをサーバーとして運用してみたメリット・デメリット
 ---
-> この記事は[https://knowledge.nazo6.dev/blog/Synology NASをサーバーとして運用してみたメリット・デメリット](https://knowledge.nazo6.dev/blog/2023/07/17/Synology%20NAS%E3%82%92%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A8%E3%81%97%E3%81%A6%E9%81%8B%E7%94%A8%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E3%83%BB%E3%83%87%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88)とのクロスポストです。
+> この記事は[https://knowledge.nazo6.dev/blog/2023/07/17/Synology NASをサーバーとして運用してみたメリット・デメリット](https://knowledge.nazo6.dev/blog/2023/07/17/Synology%20NAS%E3%82%92%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%A8%E3%81%97%E3%81%A6%E9%81%8B%E7%94%A8%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E3%83%BB%E3%83%87%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88)とのクロスポストです。
 
 
 
