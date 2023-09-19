@@ -1,10 +1,20 @@
 ---
-title: "Neovimを再起動するコマンドを作ったら結構よかった"
-emoji: "💭"
-type: "idea"
-topics: ["Neovim"]
 published: true
+created: 2023-05-02T00:00:00+09:00
+updated: 2023-05-02T00:00:00+09:00
+tags:
+  - tech/software/neovim
+type: idea
+slug: neovim-restart-command
+topics:
+  - lua
+  - neovim
+emoji: 💭
+title: Neovimを再起動するコマンドを作ったら結構よかった
 ---
+> この記事は [https://knowledge.nazo6.dev/blog/2023/05/02/neovim-restart-command](https://knowledge.nazo6.dev/blog/2023/05/02/neovim-restart-command) とのクロスポストです。
+
+
 
 # Luaのリロード
 

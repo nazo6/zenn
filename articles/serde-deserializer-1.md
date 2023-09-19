@@ -9,7 +9,7 @@ slug: serde-deserializer-1
 topics:
   - Rust
 emoji: 📄
-title: Rust serdeのDeserializerを実装してデシリアライズを理解する(Part1)
+title: SerdeのDeserializerを実装する(Part1)
 ---
 > この記事は [https://knowledge.nazo6.dev/blog/2023/09/10/serde-deserializer-1](https://knowledge.nazo6.dev/blog/2023/09/10/serde-deserializer-1) とのクロスポストです。
 
