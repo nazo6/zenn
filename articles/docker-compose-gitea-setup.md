@@ -83,7 +83,7 @@ docker-compose up -d
 - `{{}}`で囲まれた値は適宜変更すること。
 - 特に、`GITEA_RUNNER_REGISTRATION_TOKEN`については、Giteaの管理者画面より「新しいランナーを作成」してその値を入れること。
   ![](/images/blog/2023/07-02_gitea/gitea_action.png)
-- [07-02 Gitea Actionsがいつの間にか動かなくなってた](../../memo/2023/07-02%20Gitea%20Actionsがいつの間にか動かなくなってた.md)
+- [Gitea Actionsがいつの間にか動かなくなってた](../../../memo/2023/07/Gitea%20Actionsがいつの間にか動かなくなってた.md)
 
 # Giteaの設定
 上のコンテナを作成した際にできる`./gitea/gitea/conf/app.ini`を弄る。
@@ -107,7 +107,7 @@ ENABLED=true # Actionsに必要
 ./act_runner generate-config > config.yaml
 ```
 を実行。この`config.yaml`をdocker-composeに指定する。
-この設定はそんなに弄る必要は無いが、自分は[06-30 VPNを繋いだときだけDockerの中から特定のサイトにアクセスできない！](../../memo/2023/06-30%20VPNを繋いだときだけDockerの中から特定のサイトにアクセスできない！.md)の影響で
+この設定はそんなに弄る必要は無いが、自分は[VPNを繋いだときだけDockerの中から特定のサイトにアクセスできない！](../../../memo/2023/06/VPNを繋いだときだけDockerの中から特定のサイトにアクセスできない！.md)の影響で
 ```yaml:config.yaml
 container:
   network: "host"
