@@ -12,7 +12,7 @@ topics:
 emoji: 💭
 title: Neovimを再起動するコマンドを作ったら結構よかった
 ---
-> この記事は [https://knowledge.nazo6.dev/blog/2023/05/02/neovim-restart-command](https://knowledge.nazo6.dev/blog/2023/05/02/neovim-restart-command) とのクロスポストです。
+> この記事は [https://knowledge.nazo6.dev/blog/neovim-restart-command](https://knowledge.nazo6.dev/blog/neovim-restart-command) とのクロスポストです。
 
 
 

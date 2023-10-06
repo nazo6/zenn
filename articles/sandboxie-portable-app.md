@@ -11,7 +11,7 @@ topics:
 emoji: 📦
 title: Sandboxieの基礎解説+Sandboxieでアプリをポータブル化して持ち運ぶ方法
 ---
-> この記事は [https://knowledge.nazo6.dev/blog/2023/08/08/sandboxie-portable-app](https://knowledge.nazo6.dev/blog/2023/08/08/sandboxie-portable-app) とのクロスポストです。
+> この記事は [https://knowledge.nazo6.dev/blog/sandboxie-portable-app](https://knowledge.nazo6.dev/blog/sandboxie-portable-app) とのクロスポストです。
 
 
 # はじめに
@@ -34,15 +34,14 @@ Sandboxieは元々企業によって開発されていましたが、開発が�
 
 ## Sandboxの作成
 DefaultBoxをそのまま使ってもいいですがここでは新しいサンドボックスを作ります。`Sandbox -> New Box`を押すと
-![](/images/blog/2023/08/08/sandboxie/newbox.png)
+![](/images/blog/2023/08-08_sandboxie/newbox.png)
 こんな画面が出てくるので適宜名前を書いてあとは何も変えずにNext,Finishと押します。
 すると以下のようにBoxが作成されたはずです。
-![](/images/blog/2023/08/08/sandboxie/newbox1.png)
-
+![](/images/blog/2023/08-08_sandboxie/newbox1.png)
 ## ディレクトリの変更
 では次にこのBoxが保存されるフォルダを変えてみましょう。上部ツールバーのメモ帳のアイコンを押して管理者権限を承認します。するとメモ帳が開くはずです。
 その中から先程作成したBoxの名前のセクションを探します。下のようになっているはずです。
-![](/images/blog/2023/08/08/sandboxie/changedir.png)
+![](/images/blog/2023/08-08_sandboxie/changedir.png)
 ここに
 ```
 FileRootPath=[保存したいパス]

@@ -11,7 +11,7 @@ topics:
 emoji: 📝
 title: RemarkでZenn形式のmarkdownを再現する
 ---
-> この記事は [https://knowledge.nazo6.dev/blog/2023/09/25/remark-zenn-markdown](https://knowledge.nazo6.dev/blog/2023/09/25/remark-zenn-markdown) とのクロスポストです。
+> この記事は [https://knowledge.nazo6.dev/blog/remark-zenn-markdown](https://knowledge.nazo6.dev/blog/remark-zenn-markdown) とのクロスポストです。
 
 
 # 概要

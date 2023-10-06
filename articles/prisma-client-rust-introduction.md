@@ -9,7 +9,7 @@ topics:
 emoji: 📝
 title: prisma-client-rust入門
 ---
-> この記事は [https://knowledge.nazo6.dev/blog/2023/09/01/prisma-client-rust-introduction](https://knowledge.nazo6.dev/blog/2023/09/01/prisma-client-rust-introduction) とのクロスポストです。
+> この記事は [https://knowledge.nazo6.dev/blog/prisma-client-rust-introduction](https://knowledge.nazo6.dev/blog/prisma-client-rust-introduction) とのクロスポストです。
 
 
 # 概要
