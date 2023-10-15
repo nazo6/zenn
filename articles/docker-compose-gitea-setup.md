@@ -1,17 +1,12 @@
 ---
 published: true
-created: 2023-07-02T14:13:21+09:00
-updated: 2023-07-02T14:16:47+09:00
-tags:
-  - tech/git
-  - tech/selfhosted
 type: tech
-slug: docker-compose-gitea-setup
 topics:
   - Gitea
 emoji: 💭
 title: docker-composeでGitea + Gitea Actionsのセットアップ
 ---
+
 > この記事は [https://knowledge.nazo6.dev/blog/docker-compose-gitea-setup](https://knowledge.nazo6.dev/blog/docker-compose-gitea-setup) とのクロスポストです。
 
 

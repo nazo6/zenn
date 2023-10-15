@@ -1,16 +1,12 @@
 ---
 published: true
-created: 2023-08-08T16:07:16+09:00
-updated: 2023-08-08T18:31:51+09:00
-tags:
-  - tech/software/sandboxie
 type: idea
-slug: sandboxie-portable-app
 topics:
   - Sandboxie
 emoji: 📦
 title: Sandboxieの基礎解説+Sandboxieでアプリをポータブル化して持ち運ぶ方法
 ---
+
 > この記事は [https://knowledge.nazo6.dev/blog/sandboxie-portable-app](https://knowledge.nazo6.dev/blog/sandboxie-portable-app) とのクロスポストです。
 
 

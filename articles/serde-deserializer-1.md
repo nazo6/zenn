@@ -1,16 +1,12 @@
 ---
 published: true
-created: 2023-09-10T12:38:19+09:00
-updated: 2023-09-10T19:13:29+09:00
-tags:
-  - tech/lang/rust
 type: tech
-slug: serde-deserializer-1
 topics:
   - Rust
 emoji: 🛠️
 title: SerdeのDeserializerを実装する(Part1)
 ---
+
 > この記事は [https://knowledge.nazo6.dev/blog/serde-deserializer-1](https://knowledge.nazo6.dev/blog/serde-deserializer-1) とのクロスポストです。
 
 
@@ -151,7 +147,9 @@ test test::deserialize_true ... ok
 
 failures:
 
----- test::deserialize_error stdout ----
+
+- test::deserialize_error stdout 
+-
 thread 'test::deserialize_error' panicked at 'called `Result::unwrap()` on an `Err` value: Unsupported("Unsupported type")', src/lib.rs:61:53
 ```
 `"true"`という文字列が正常に`true`にデシリアライズされ、さらに`"true"`という文字列であっても型がStringであればUnsupportedのエラーが発生していることがわかります。

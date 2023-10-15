@@ -1,16 +1,12 @@
 ---
 published: true
-created: 2023-07-17T20:12:12+09:00
-updated: 2023-07-17T20:12:32+09:00
-tags:
-  - tech/synology
 type: idea
-slug: synology-nas-server
 topics:
   - NAS
 emoji: 📄
 title: Synology NASをサーバーとして運用してみたメリット・デメリット
 ---
+
 > この記事は [https://knowledge.nazo6.dev/blog/synology-nas-server](https://knowledge.nazo6.dev/blog/synology-nas-server) とのクロスポストです。
 
 

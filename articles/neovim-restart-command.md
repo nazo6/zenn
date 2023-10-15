@@ -1,17 +1,13 @@
 ---
 published: true
-created: 2023-05-02T00:00:00+09:00
-updated: 2023-05-02T00:00:00+09:00
-tags:
-  - tech/software/neovim
 type: idea
-slug: neovim-restart-command
 topics:
   - lua
   - neovim
 emoji: 💭
 title: Neovimを再起動するコマンドを作ったら結構よかった
 ---
+
 > この記事は [https://knowledge.nazo6.dev/blog/neovim-restart-command](https://knowledge.nazo6.dev/blog/neovim-restart-command) とのクロスポストです。
 
 

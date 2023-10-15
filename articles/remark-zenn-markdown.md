@@ -1,16 +1,12 @@
 ---
 published: true
-created: 2023-09-25T00:11:04+09:00
-updated: 2023-09-25T00:11:20+09:00
-tags:
-  - tech/lang/js-ts
-  - tech/lang/js-ts/unified
-slug: remark-zenn-markdown
+type: tech
 topics:
   - typescript
 emoji: 📝
 title: RemarkでZenn形式のmarkdownを再現する
 ---
+
 > この記事は [https://knowledge.nazo6.dev/blog/remark-zenn-markdown](https://knowledge.nazo6.dev/blog/remark-zenn-markdown) とのクロスポストです。
 
 
@@ -49,7 +45,8 @@ title: RemarkでZenn形式のmarkdownを再現する
 ```diff:micromark-extension-directive@2.2.1.patch
 diff --git a/lib/factory-name.js b/lib/factory-name.js
 index 4599862b23fcad95ac6ccc87a35ebca1a86aaa0b..083bbc056f41dd141e15f93e486f619aa7e3c67a 100644
---- a/lib/factory-name.js
+
+ a/lib/factory-name.js
 +++ b/lib/factory-name.js
 @@ -29,11 +29,11 @@ export function factoryName(effects, ok, nok, type) {
  
@@ -67,7 +64,8 @@ index 4599862b23fcad95ac6ccc87a35ebca1a86aaa0b..083bbc056f41dd141e15f93e486f619a
  }
 diff --git a/package.json b/package.json
 index 43ac4e41363a82066fb338ef385bed9eefa83075..0ef29ce297f92a9fedda1a3771bd01b941647690 100644
---- a/package.json
+
+ a/package.json
 +++ b/package.json
 @@ -35,7 +35,6 @@
    ],

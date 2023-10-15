@@ -1,14 +1,12 @@
 ---
 published: true
-created: 2023-09-01T11:58:30+09:00
-updated: 2023-09-01T14:31:48+09:00
 type: tech
-slug: prisma-client-rust-introduction
 topics:
   - Rust
 emoji: 📝
 title: prisma-client-rust入門
 ---
+
 > この記事は [https://knowledge.nazo6.dev/blog/prisma-client-rust-introduction](https://knowledge.nazo6.dev/blog/prisma-client-rust-introduction) とのクロスポストです。
 
 

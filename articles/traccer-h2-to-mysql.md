@@ -1,16 +1,12 @@
 ---
 published: true
-created: 2023-09-04T19:54:30+09:00
-updated: 2023-09-04T19:55:57+09:00
-tags:
-  - tech/selfhosted
 type: tech
-slug: traccer-h2-to-mysql
 topics:
   - traccar
 emoji: 🔄
 title: TraccarのデータをH2からMySQLに移行
 ---
+
 > この記事は [https://knowledge.nazo6.dev/blog/traccer-h2-to-mysql](https://knowledge.nazo6.dev/blog/traccer-h2-to-mysql) とのクロスポストです。
 
 
