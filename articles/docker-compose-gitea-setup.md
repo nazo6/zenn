@@ -77,7 +77,7 @@ docker-compose up -d
 - `act_runner`の`config.yaml`は[Gitea Actions(act_runner)の設定](#Gitea%20Actions(act_runner)の設定)を参照
 - `{{}}`で囲まれた値は適宜変更すること。
 - 特に、`GITEA_RUNNER_REGISTRATION_TOKEN`については、Giteaの管理者画面より「新しいランナーを作成」してその値を入れること。
-  ![](/images/blog/2023/07-02_gitea/gitea_action.png)
+  ![](/images/blog/2023/07/gitea/gitea_action.png)
 - [Gitea Actionsがいつの間にか動かなくなってた](../../../memo/2023/07/Gitea%20Actionsがいつの間にか動かなくなってた.md)
 
 # Giteaの設定
