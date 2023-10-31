@@ -46,4 +46,5 @@ vim.g.clipboard = {
    ```toml:lemonade.toml
    allow = 'ここにipをいれる'
 ```
-4. これでssh先のneovimとクリップボードが共有されてるはずです。
+4. SSH元で`lemonade server`を実行する
+5. これでssh先のneovimとクリップボードが共有されてるはずです。
