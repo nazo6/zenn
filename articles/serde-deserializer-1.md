@@ -195,7 +195,7 @@ impl<'de> Deserialize<'de> for bool {
     }
 }
 ```
-Deserializerのコードよりむしろこちらのほうが何が起きているのかがわかりやすい気もしますね。`Deserialize::deserialize -> Deserializer::deserialize_{bool, ...} -> Visitor::visit_{bool, ...}`の順番に処理されていることが明白です。
+このコードを見れば`Deserialize::deserialize -> Deserializer::deserialize_bool -> Visitor::visit_bool`の順で処理されていることがよりわかりやすいと思います。
 
 また、[先程のコード](#Deserializerの実装)で実際に`deserialize_bool`に渡されていた`Visitor`は`BoolVisitor`だったということがわかります。そして、`BoolVisitor`には`expecting`と`visit_bool`の二つのメソッドが実装されています。詳しくは[docs.rs](https://docs.rs/serde/latest/serde/de/trait.Visitor.html)に解説がありますが、`expecting`はエラーメッセージに使われ、`visit_bool`はDeserializerで処理されたbool値を受けとり、`Self::Value`型を返しています。その他のメソッドは実装されていませんが、デフォルト実装でエラーが返るようになっています。
 
