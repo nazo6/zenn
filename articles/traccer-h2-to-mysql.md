@@ -7,7 +7,7 @@ emoji: 🔄
 title: TraccarのデータをH2からMySQLに移行
 ---
 
-> この記事は [https://knowledge.nazo6.dev/blog/traccer-h2-to-mysql](https://knowledge.nazo6.dev/blog/traccer-h2-to-mysql) とのクロスポストです。
+> この記事は [https://note.nazo6.dev/blog/traccer-h2-to-mysql](https://note.nazo6.dev/blog/traccer-h2-to-mysql) とのクロスポストです。
 
 
 # 概要

@@ -7,7 +7,7 @@ emoji: 📄
 title: tokioで作ったサーバーをdockerで起動すると終了が遅くなるときの対処法
 ---
 
-> この記事は [https://knowledge.nazo6.dev/blog/rust-server-docker-stop-slow](https://knowledge.nazo6.dev/blog/rust-server-docker-stop-slow) とのクロスポストです。
+> この記事は [https://note.nazo6.dev/blog/rust-server-docker-stop-slow](https://note.nazo6.dev/blog/rust-server-docker-stop-slow) とのクロスポストです。
 
 
 # 概要

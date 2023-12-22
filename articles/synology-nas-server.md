@@ -7,7 +7,7 @@ emoji: 📄
 title: Synology NASをサーバーとして運用してみたメリット・デメリット
 ---
 
-> この記事は [https://knowledge.nazo6.dev/blog/synology-nas-server](https://knowledge.nazo6.dev/blog/synology-nas-server) とのクロスポストです。
+> この記事は [https://note.nazo6.dev/blog/synology-nas-server](https://note.nazo6.dev/blog/synology-nas-server) とのクロスポストです。
 
 
 

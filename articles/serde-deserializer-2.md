@@ -7,7 +7,7 @@ emoji: 🦞
 title: SerdeのDeserializerを実装する(Part2 JSON編)
 ---
 
-> この記事は [https://knowledge.nazo6.dev/blog/serde-deserializer-2](https://knowledge.nazo6.dev/blog/serde-deserializer-2) とのクロスポストです。
+> この記事は [https://note.nazo6.dev/blog/serde-deserializer-2](https://note.nazo6.dev/blog/serde-deserializer-2) とのクロスポストです。
 
 
 この記事は[Rust Advent Calendar 2023](https://qiita.com/advent-calendar/2023/rust) シリーズ3の19日目の記事です。

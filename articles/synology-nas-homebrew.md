@@ -7,7 +7,7 @@ emoji: 💭
 title: Synology NASへのHomebrew(linuxbrew)を使ったNeovimのインストール
 ---
 
-> この記事は [https://knowledge.nazo6.dev/blog/synology-nas-homebrew](https://knowledge.nazo6.dev/blog/synology-nas-homebrew) とのクロスポストです。
+> この記事は [https://note.nazo6.dev/blog/synology-nas-homebrew](https://note.nazo6.dev/blog/synology-nas-homebrew) とのクロスポストです。
 
 
 # 概要

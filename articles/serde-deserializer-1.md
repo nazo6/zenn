@@ -7,7 +7,7 @@ emoji: 🛠️
 title: SerdeのDeserializerを実装する(Part1)
 ---
 
-> この記事は [https://knowledge.nazo6.dev/blog/serde-deserializer-1](https://knowledge.nazo6.dev/blog/serde-deserializer-1) とのクロスポストです。
+> この記事は [https://note.nazo6.dev/blog/serde-deserializer-1](https://note.nazo6.dev/blog/serde-deserializer-1) とのクロスポストです。
 
 
 # 概要

@@ -7,7 +7,7 @@ emoji: 📦
 title: Sandboxieの基礎解説+Sandboxieでアプリをポータブル化して持ち運ぶ方法
 ---
 
-> この記事は [https://knowledge.nazo6.dev/blog/sandboxie-portable-app](https://knowledge.nazo6.dev/blog/sandboxie-portable-app) とのクロスポストです。
+> この記事は [https://note.nazo6.dev/blog/sandboxie-portable-app](https://note.nazo6.dev/blog/sandboxie-portable-app) とのクロスポストです。
 
 
 # はじめに
