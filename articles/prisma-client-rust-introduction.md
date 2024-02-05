@@ -7,9 +7,6 @@ emoji: 📝
 title: prisma-client-rust入門
 ---
 
-> この記事は [https://note.nazo6.dev/blog/prisma-client-rust-introduction](https://note.nazo6.dev/blog/prisma-client-rust-introduction) とのクロスポストです。
-
-
 # 概要
 [prisma-client-rust](https://prisma.brendonovich.dev/)はJavascript向けのORMである[prisma](https://www.prisma.io/)をRustから使えるようにしたものです。実はprismaのコア部分はRustで書かれているためこういうものも作りやすかったんじゃないかと思います。
 
@@ -172,3 +169,6 @@ let posts: Vec<_> = client
 ## 一部の列のみを取得
 先程紹介した`include!()`マクロに似た`select!()`マクロを使用することで一部の列のみを取得することができます。
 また、includeマクロ内でselectキーワードを使用するというようなことも可能で柔軟にデータを取得できます。
+
+
+> この記事は [https://note.nazo6.dev/blog/prisma-client-rust-introduction](https://note.nazo6.dev/blog/prisma-client-rust-introduction) とのクロスポストです。

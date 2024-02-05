@@ -7,9 +7,6 @@ emoji: 📝
 title: RemarkでZenn形式のmarkdownを再現する
 ---
 
-> この記事は [https://note.nazo6.dev/blog/remark-zenn-markdown](https://note.nazo6.dev/blog/remark-zenn-markdown) とのクロスポストです。
-
-
 # 概要
 この記事はブログとZennに同時投稿しているのですが、その際に[Zen独自のmarkdown記法](https://zenn.dev/zenn/articles/markdown-guide#zenn-%E7%8B%AC%E8%87%AA%E3%81%AE%E8%A8%98%E6%B3%95)を使いたいときがあります。ブログ側ではmarkdownの表示に`remark`を使っているので`remark`でそれらを表示したいという趣旨です。
 
@@ -145,3 +142,6 @@ export const remarkCustomDirective: Plugin<[], Root> = () => {
 ```
 
 これを使うには`remark-directive`と上の`remarkCustomDirective`の両方のプラグインを読み込みます。
+
+
+> この記事は [https://note.nazo6.dev/blog/remark-zenn-markdown](https://note.nazo6.dev/blog/remark-zenn-markdown) とのクロスポストです。

@@ -9,9 +9,6 @@ emoji: 💭
 title: WASMでTypstプラグインを作ろう
 ---
 
-> この記事は [https://note.nazo6.dev/blog/wasm-typst-plugin](https://note.nazo6.dev/blog/wasm-typst-plugin) とのクロスポストです。
-
-
 最近話題の新鋭組版ソフトのTypstですが、wasmファイルを読み込んでプラグインとして使用することができます。これにより様々な言語でそのエコシステムを生かしたプラグインを作成することができます。
 
 https://typst.app/docs/reference/foundations/plugin
@@ -194,4 +191,12 @@ csvやtsvの読み込み機能はTypstに組み込まれているのでこれを
 
 https://zenn.dev/mkpoli/articles/7e54c1c780ff43
 
+また、今回使用したソースコードは
+
+https://github.com/nazo6/playground/tree/main/typst-plugin
+
+で公開しています。
+
 是非みなさんもTypstプラグインを作ってみてください。
+
+> この記事は [https://note.nazo6.dev/blog/wasm-typst-plugin](https://note.nazo6.dev/blog/wasm-typst-plugin) とのクロスポストです。

@@ -7,9 +7,6 @@ emoji: 💭
 title: docker-composeでGitea + Gitea Actionsのセットアップ
 ---
 
-> この記事は [https://note.nazo6.dev/blog/docker-compose-gitea-setup](https://note.nazo6.dev/blog/docker-compose-gitea-setup) とのクロスポストです。
-
-
 # 結論から
 こんな感じのdocker-compose.ymlで良い
 
@@ -108,3 +105,6 @@ container:
   network: "host"
 ```
 これだけ指定した。
+
+
+> この記事は [https://note.nazo6.dev/blog/docker-compose-gitea-setup](https://note.nazo6.dev/blog/docker-compose-gitea-setup) とのクロスポストです。

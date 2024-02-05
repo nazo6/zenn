@@ -7,9 +7,6 @@ emoji: 📋
 title: lemonadeでssh先のneovimとクリップボードを共有
 ---
 
-> この記事は [https://note.nazo6.dev/blog/lemonade-neovim-clipboard](https://note.nazo6.dev/blog/lemonade-neovim-clipboard) とのクロスポストです。
-
-
 [lemonade](https://github.com/lemonade-command/lemonade)を使えばTCP通信を用いてクリップボードを共有できます。
 
 :::message
@@ -48,3 +45,5 @@ vim.g.clipboard = {
 ```
 4. SSH元で`lemonade server`を実行する
 5. これでssh先のneovimとクリップボードが共有されてるはずです。
+
+> この記事は [https://note.nazo6.dev/blog/lemonade-neovim-clipboard](https://note.nazo6.dev/blog/lemonade-neovim-clipboard) とのクロスポストです。

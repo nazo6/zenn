@@ -7,9 +7,6 @@ emoji: 🛠️
 title: SerdeのDeserializerを実装する(Part1)
 ---
 
-> この記事は [https://note.nazo6.dev/blog/serde-deserializer-1](https://note.nazo6.dev/blog/serde-deserializer-1) とのクロスポストです。
-
-
 # 概要
 Serdeで任意の形式のファイルなどをデシリアライズする際にはDeserializerを書く必要があります。この記事では基本的なDeserializerの書き方を解説します。
 正直自分もあまり理解していない部分が多々あるのですが世に出ている情報が少ないので書くことにしました。
@@ -261,3 +258,6 @@ https://crieit.net/posts/Serde-1-derive
 https://users.rust-lang.org/t/why-are-there-2-types-for-deserializing-in-serde/35735/9
 
 Visitorの理解を助けてくれました
+
+
+> この記事は [https://note.nazo6.dev/blog/serde-deserializer-1](https://note.nazo6.dev/blog/serde-deserializer-1) とのクロスポストです。
