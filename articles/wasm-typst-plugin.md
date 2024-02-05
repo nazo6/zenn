@@ -96,7 +96,7 @@ typst compile sample.typ
 自分は表を作る時に雑にExcelで作ることが多いのですが、Typstでxlsxファイルは読み込めないのでCSVにいちいち変換しなければなりません。
 これは面倒なのでxlsxファイルを直接読み込んでくれるTypstプラグインを作ろうと思います。
 
-xlsxファイルを読み込むのは大変そうだな…と思った方もいるかもしれませんがそこはRust、[calamin](https://github.com/tafia/calamine)という素晴らしいクレートが存在します。これを使うことで手軽にxlsxの解析が行えます。。
+xlsxファイルを読み込むのは大変そうだな…と思った方もいるかもしれませんがそこはRust、[calamine](https://github.com/tafia/calamine)という素晴らしいクレートが存在します。これを使うことで手軽にxlsxの解析が行えます。
 
 まずは前節と同様にRustプロジェクトを作成してから
 ```
