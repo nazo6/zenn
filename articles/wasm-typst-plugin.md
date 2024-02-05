@@ -9,13 +9,14 @@ emoji: 💭
 title: WASMでTypstプラグインを作ろう
 ---
 
-最近話題の新鋭組版ソフトのTypstですが、wasmファイルを読み込んでプラグインとして使用することができます。これにより様々な言語でそのエコシステムを生かしたプラグインを作成することができます。
+最近なんだか話題ですね、Typst。その簡潔な構文や環境構築の容易さが注目されているのだと思います。
+そんなTypstですが、プラグインシステムを備えており、WASMを使って拡張することが可能です。
 
 https://typst.app/docs/reference/foundations/plugin
 
-実際、[公式のプラグインリスト](https://typst.app/docs/packages/)の中にも内部でwasmプラグインを使用しているものが多々あり、例えばQuickJSを利用してJavaScriptを実行する[Jogs](https://github.com/typst/packages/tree/main/packages/preview/jogs/0.2.3)やMarkdownをTypstに変換する[cmarker](https://github.com/typst/packages/tree/main/packages/preview/cmarker/0.1.0)、さらにはLaTeXをTypst構文に変換して表示する(!)[mitex](https://github.com/mitex-rs/mitex)なんていうものもあります。
+[公式のパッケージリスト](https://typst.app/docs/packages/)に掲載されているパッケージの中にも内部でWASMプラグインを使用しているものが既に多々あります。例えばQuickJSを利用してJavaScriptを実行する「[Jogs](https://github.com/typst/packages/tree/main/packages/preview/jogs/0.2.3)」やMarkdownをTypstに変換する「[cmarker](https://github.com/typst/packages/tree/main/packages/preview/cmarker/0.1.0)」、さらにはLaTeXをTypst構文に変換して表示する(!)「[mitex](https://github.com/mitex-rs/mitex)」なんていうものもあります。
 
-この記事ではRustを使ってTypstのプラグインを作成してみます。Typst自体もRustで作られているためRust用の環境がよく整備されている印象がありますが、もちろんwasmにコンパイルできる言語であればどのような言語も使用可能です。
+この記事ではRustを使ってTypstのプラグインを作成します。Typst自体もRustで作られているためRust用の環境がよく整備されていますが、もちろんwasmにコンパイルできる言語であればどのような言語も使用可能です。ただし、WASIはサポートされていないため、WASIが必須な言語やライブラリを使用する際には[wasi-stub](https://github.com/astrale-sharp/wasm-minimal-protocol?tab=readme-ov-file#wasi-stub)を使用する必要があります。
 
 ZigとCの例が[ここ](https://github.com/astrale-sharp/wasm-minimal-protocol/tree/master/examples)にある他、その他の言語でも[Typstのwasm protocol](https://typst.app/docs/reference/foundations/plugin#protocol)に従って関数をエクスポートすることでTypstプラグインを作成できます。
 
@@ -185,9 +186,9 @@ csvやtsvの読み込み機能はTypstに組み込まれているのでこれを
 # 最後に
 いかがでしたか？かなり簡単にTypstのプラグインを作成できることがお分かり頂けたかと思います。既存の言語のエコシステムを使って比較的容易に複雑なプラグインを開発することができることはTypstの大きな利点になると思いました。
 
-ちなみに、パッケージを作ったら[`typst/packages`](https://github.com/typst/packages)リポジトリにPRを送ることで`import "@preview/..."`でインポートできるように公開することができます。
+ちなみに、パッケージを作ったら[`typst/packages`](https://github.com/typst/packages)リポジトリにPRを送ることで公式のプラグインリストに載り、`import "@preview/..."`でインポートできるようになります。
 
-参考記事:
+参考:
 
 https://zenn.dev/mkpoli/articles/7e54c1c780ff43
 
