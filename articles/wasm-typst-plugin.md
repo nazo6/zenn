@@ -85,12 +85,12 @@ typst compile sample.typ
 このようなpdfファイルが生成されているはずです。非常に簡単ですね。
 
 # Excel読み込みプラグイン
-これだけでは面白くないのでもう少し実用的なものを作ってみたいと思います。
+これだけでは面白くないのでもう少し実用的なものを作りましょう。
 
 自分は表を作る時に雑にExcelで作ることが多いのですが、Typstでxlsxファイルは読み込めないのでcsvにいちいち変換しなければなりません。
-これは面倒なのでxlsxファイルを読み込んでくれるTypstプラグインを作ってみようとと思います。
+これは面倒なのでxlsxファイルを読み込んでくれるTypstプラグインを作ろうとと思います。
 
-xlsxファイルを読み込むのは大変そうだな…と思った方もいるかもしれませんがそこはRust、[calamin](https://github.com/tafia/calamine)という素晴らしいクレートが存在します。これを使ってさくっと作ってしまいましょう。
+xlsxファイルを読み込むのは大変そうだな…と思った方もいるかもしれませんがそこはRust、[calamin](https://github.com/tafia/calamine)という素晴らしいクレートが存在します。これを使うことで手軽にxlsxの解析が行えます。。
 
 まずは前節と同様にRustプロジェクトを作成してから
 ```
@@ -159,17 +159,17 @@ pub fn get_table(
   plugin.get_table(
     read(file, encoding: none),
     bytes(sheet),
-    bytes(col),
-    bytes(row),
-    bytes(width),
-    bytes(height)
+    bytes(str(col)),
+    bytes(str(row)),
+    bytes(str(width)),
+    bytes(str(height))
   ),
   delimiter: "\t"
 )
 
 #table(
   columns: 4,
-  ..get_table("Book1.xlsx","Sheet1","1","1","4","10").flatten()
+  ..get_table("Book1.xlsx", "Sheet1", 1, 1, 4, 10).flatten()
 )
 ```
 ソースコードを見てもらえれば大体何をしているのかわかると思います。
