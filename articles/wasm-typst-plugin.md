@@ -43,6 +43,12 @@ crate-type = ["cdylib"]
 wasm-minimal-protocol = { git = "https://github.com/astrale-sharp/wasm-minimal-protocol/" }
 ```
 `crate-type = ["cdylib"]`はwasmにビルドするのに必要です。また、[`wasm-minimal-protocol`](https://github.com/astrale-sharp/wasm-minimal-protocol)クレートでは、関数を先述したプロトコルに合うように変換してくれるマクロを提供してくれています。
+また、`.cargo/config.toml`ファイルを作成し、デフォルトでwasmがコンパイルされるようにしておきます。
+
+```toml:.cargo/config.toml
+[build]
+target = "wasm32-unknown-unknown"
+```
 
 次に`lib.rs`を以下のように書き換えます。
 ```rust:src/lib.rs
@@ -60,11 +66,11 @@ Typstプラグインは基本的にバイト列を受け取りバイト列を返
 
 最後に以下のコマンドでビルドします。
 ```
-cargo build --release --target wasm32-unknown-unknown
+cargo build --release
 ```
 `target`ディレクトリ内にwasmが生成されたはずです。では実際にTypstで読み込んでみましょう。以下のようなTypstファイルを作成します。
 ```typst:sample.typ
-#let plugin = plugin("./target/wasm32-unknown-unknown/release/typst_minimal_plugin.wasm")
+#let plugin = plugin("./target/wasm32-unknown-unknown/release/typst_greet.wasm")
 
 #let greet(name) = str(
   plugin.greet(
@@ -72,7 +78,7 @@ cargo build --release --target wasm32-unknown-unknown
   )
 )
 
-#greet("user")
+#greet("typst")
 ```
 プラグインはバイト列を受け取りバイト列を返すので、引数は`bytes()`で変換して渡し戻り値は`str()`関数で文字列に戻します。
 
