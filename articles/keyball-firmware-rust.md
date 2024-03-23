@@ -64,7 +64,7 @@ RAVEDUDE_PORT=COM13 cargo run --release
 コンパイルが終わったらリセットしたらEnterを押してねと言われるのでその通りにすればプログラムが書き込まれて無事Lチカされるはずです。
 とても簡単にできて感動です。
 
-また、RAVEDUDE_PORTはUSBシリアルポートの番号です。筆者はWindowsを使用しているのでCOM{X}という値になります。
+また、RAVEDUDE_PORTはUSBシリアルポートの番号です。筆者はWindowsを使用しているので`COM{X}`という値になります。
 この値はQMK Toolboxなどを使うと簡単に調べることができます。
 
 # USB接続
