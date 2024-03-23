@@ -8,11 +8,9 @@ title: RustでKeyballのファームウェアを書きたい話
 ---
 
 
-最近[Keyball](https://github.com/Yowkees/keyball)を買っていろいろキーマップを試行錯誤したりしてるわけですが、やはりファームウェアを直接弄りたい時があります。
-
 KeyballのファームウェアはQMKを使ったC言語のものになっています。ですがやはりRust、使いたいですよね？
 
-また、間違ってRP2040のProMicroを買ってしまった方がなんとRustでkeyballのファームウェアを作っており、不可能ということはなさそう。
+間違ってRP2040のProMicroを買ってしまった方がなんとRustでkeyballのファームウェアを作っており、不可能ということはなさそうです。
 
 https://hikalium.hatenablog.jp/entry/2021/12/31/150738
 
