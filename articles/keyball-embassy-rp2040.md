@@ -9,7 +9,7 @@ title: RustとEmbassyでKeyballのファームウェアを作った
 ---
 
 # はじめに
-以前[RustでKeyballのファームウェアを書きたい話](../03/RustでKeyballのファームウェアを書きたい話.md)で、ATMega32U4向けのファームウェアの作成をRustで試みたという話を書きましたが、結論から言うとこれは諦めてProMicro RP2040向けのファームウェアをRustで書くことにしました。
+以前[RustでKeyballのファームウェアを書きたい話](https://zenn.dev/nazo6/articles/keyball-firmware-rust)で、ATMega32U4向けのファームウェアの作成をRustで試みたという話を書きましたが、結論から言うとこれは諦めてProMicro RP2040向けのファームウェアをRustで書くことにしました。
 
 理由は当該記事に既にちらっと書いているのですが
 - USBの謎バグを解決できなかった

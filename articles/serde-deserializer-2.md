@@ -9,7 +9,7 @@ title: SerdeのDeserializerを実装する(Part2 JSON編)
 
 この記事は[Rust Advent Calendar 2023](https://qiita.com/advent-calendar/2023/rust) シリーズ3の19日目の記事です。
 
-前回の[SerdeのDeserializerを実装する(Part1)](SerdeのDeserializerを実装する(Part1).md)の続きとして、この記事ではserdeの公式ドキュメントにある「[Implementing a Deserializer](https://serde.rs/impl-deserializer.html)」というページで実装されているjsonのデシリアライザ(を一部改変したもの)についてチュートリアル風に解説します。逆に言えばこのページの内容を理解していればこの記事を読む必要はないかもしれません…)。
+前回の[SerdeのDeserializerを実装する(Part1)](https://zenn.dev/nazo6/articles/serde-deserializer-1)の続きとして、この記事ではserdeの公式ドキュメントにある「[Implementing a Deserializer](https://serde.rs/impl-deserializer.html)」というページで実装されているjsonのデシリアライザ(を一部改変したもの)についてチュートリアル風に解説します。逆に言えばこのページの内容を理解していればこの記事を読む必要はないかもしれません…)。
 と言っても全て解説すると分量が多すぎなので基本的なところのみを紹介します。
 このページで実装されているデシリアイザは結構実践的で、このページの内容が理解できればserdeで割と思い通りのDeserializerを実装できるんじゃないかと思います。
 
