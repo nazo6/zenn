@@ -4,8 +4,8 @@ type: tech
 topics:
   - Docker
 emoji: 🐋
-title: Dockerでの「could not find an available, non-overlapping IPv4 address pool
-  among the defaults to assign to the network」というエラーの対処法
+title: Dockerでの「could not find an available, non-overlapping IPv4 address
+  pool...」というエラーの対処法
 ---
 
 自宅サーバーで`docker-compose up`をしたときにこのエラーが出ました。ググったところ`docker network prune`などの解決策が出てきましたが実際に30個のネットワークを使っているのでこれでは意味がありません。
