@@ -20,9 +20,9 @@ could not find an available, non-overlapping IPv4 address pool among the default
 
 https://zenn.dev/kobachiki/articles/dc72ce717e3c01
 
-ですが今後のために今回はdockerの設定を変更することにしました。
+ですが今後のために今回はdockerの設定を変更することにしました。Dockerの`default-address-pools`という設定を変更することで`docker compose up`で作られるネットワークのデフォルト設定をすることができます。
 
-デフォルトではdockerの`default-address-pools`は以下のようになっています(実際に書いているわけではなく概念として)。
+デフォルトではdockerの`default-address-pools`は以下のようになっています(実際にこういう設定が記述されているわけではありませんが概念としてはこうなります)。
 ```json
   "default-address-pools" : [
     {
@@ -35,7 +35,7 @@ https://zenn.dev/kobachiki/articles/dc72ce717e3c01
     }
   ]
 ```
-これは1ネットワークあたり最大で`/16`という巨大領域を割り当てていて1コンテナに体しては明らかに無駄です。なので
+これは1ネットワークあたり最大で`/16`という巨大領域を割り当てています。1コンテナに対してこれは明らかに過剰なので減らしてしまいましょう。
 ```json
   "default-address-pools" : [
     {
@@ -54,7 +54,7 @@ https://zenn.dev/kobachiki/articles/dc72ce717e3c01
 
 https://straz.to/2021-09-08-docker-address-pools/
 
-# synologyのContainer Managerでの設定方法
+# SynologyのContainer Managerでの設定方法
 SynologyのContainer Managerを使っている人だけに関係がある話です。
 
 通常であれば以上の設定を`/etc/docker/daemon.json`に加えればいいのですが、Synology NAS上のdockerでは
