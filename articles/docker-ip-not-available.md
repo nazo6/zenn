@@ -59,7 +59,7 @@ SynologyのContainer Managerを使っている人だけに関係がある話で�
 
 通常であれば以上の設定を`/etc/docker/daemon.json`に加えればいいのですが、Synology NAS上のdockerでは
 ```
-/var/packages/ContainerManager/dockerd.json
+/var/packages/ContainerManager/etc/dockerd.json
 ```
 に設定しなければなりません。
 
