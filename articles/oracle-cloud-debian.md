@@ -9,7 +9,7 @@ title: Oracle Cloud ComputingにDebian(などのディストリビューショ�
 ---
 
 
-最近Oracle CloudのarmのFree Tierを使えるようになったので使ってみたのですが作成時に選べるイメージにDebianがありません。
+最近Oracle CloudのarmのFree Tierを使えるようになったので使おうとしたのですが、作成時に選べるイメージに使い慣れたDebianがありません。
 オブジェクトストレージにイメージをアップロードすればカスタムイメージを使えるようですが、容量をなるべく使いたくなかったのとインストール時のオプションを変更したいと思い探したところ[netboot.xyz](https://netboot.xyz/)というものが使えることがわかったので紹介します。
 
 ちなみにDebian以外の様々なLinuxを入れることができます。
@@ -35,7 +35,7 @@ sudo systemctl reboot --firmware-setup
 UEFIブートメニューを使うためにVNC接続をする必要があります。インスタンス詳細画面のコンソール接続より、「ローカル接続の作成」を押し、秘密鍵をダウンロードしてから接続を作成してください。
 
 できたら作成した接続のメニューより「WindowsのVNC接続のコピー」を押します。LinuxではLinuxの方を選択しますが今回はWindowsでの接続について書きます。
-![](resource/public/blog/2024/06/oci-debian/vnc-console.png)
+![](/images/blog/2024/06/oci-debian/vnc-console.png)
 
 接続するためにPuTTYをインストールします。例えばscoopでは
 ```
@@ -56,7 +56,7 @@ Access granted. Press Return to begin session.
 というメッセージが出るはずです。これで接続準備は完了です。
 # 3. OSのインストール
 お好きなVNCビューアを使って`localhost:5900`に接続します。するとこのようにブートメニューが出るはずです。
-![](resource/public/blog/2024/06/oci-debian/uefi.png)
+![](/images/blog/2024/06/oci-debian/uefi.png)
 この画面で「Boot Maintenance Manager -> Boot From File -> 一つだけ見えてるやつを選択 -> netboot.xyz-なんとか.efi」を選択します。
 
 しばらく待っているとnetboot.xyzが起動します。
