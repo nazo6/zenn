@@ -22,7 +22,7 @@ https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum_keycodes.h
 
 にあります。
 
-## QK_BASIC (0x0000-0x000F)
+## QK_BASIC (0x0000-0x00FF)
 普通のキー。
 ```
 ↓上位ビット
