@@ -244,7 +244,7 @@ https://docs.qmk.fm/features/programmable_button
 
 ## QK_QUANTUM (0x7C00-0x7DFF)
 色んな機能が詰め込まれているみたい。キー一覧を折り畳んで置いておきます。
-:::details
+:::details キー一覧
 ```c
     QK_BOOTLOADER = 0x7C00,
     QK_REBOOT = 0x7C01,
