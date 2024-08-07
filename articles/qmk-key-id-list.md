@@ -1158,7 +1158,9 @@ enum mods_5bit {
 };
 ```
 
-([modifiers.h](https://github.com/qmk/qmk_firmware/blob/75402109e9a3d0d0ec129bb7132aae1367c8bf9d/quantum/modifiers.h#L16)より引用)
+(
+[modifiers.h](https://github.com/qmk/qmk_firmware/blob/75402109e9a3d0d0ec129bb7132aae1367c8bf9d/quantum/modifiers.h#L16)より引用
+)
 
 HIDとは違うデータ構造になっており、HIDでは8ビット必要だったのが5ビットに圧縮されています。
 
