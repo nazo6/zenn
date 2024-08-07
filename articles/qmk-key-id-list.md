@@ -4,15 +4,14 @@ type: idea
 topics:
   - qmkfirmware
   - 自作キーボード
-emoji: 🖮
-title: QMKキーIDとアクション一覧
+emoji: ⌨️
+title: QMKキーIDとアクションのすべて
 ---
 
-Viaのプロトコルを触る際に必要だったので
 
 https://github.com/qmk/qmk_firmware/blob/master/quantum/keycodes.h
 
-にあるQMKの全てのキー範囲をまとめました。
+にあるQMKのキーコードのアクションごとの範囲をまとめました。ほぼ全てのQMKのアクションを網羅しているはずです。
 
 # 範囲一覧
 
@@ -550,8 +549,7 @@ QK_ALT_REPEAT_KEY = 0x7C7A,
 
 Keycodeという単語が意味するものは結構曖昧ですが、今から説明するKeycodeはQMK上で`KC_`から始まるもののことを指します。
 
-Keycodeは`0x00`から`0xFF`までの8ビットで表され、「普通のキー」を指します。それぞれに割り当てられている番号はUSB
-HIDと大体同じですが
+Keycodeは`0x00`から`0xFF`までの8ビットで表され、「普通のキー」を指します。それぞれに割り当てられている番号はHIDと大体同じですが
 
 https://docs.qmk.fm/keycodes_basic
 
@@ -584,9 +582,7 @@ enum mods_5bit {
 };
 ```
 
-(
-[modifiers.h](https://github.com/qmk/qmk_firmware/blob/75402109e9a3d0d0ec129bb7132aae1367c8bf9d/quantum/modifiers.h#L16)より引用
-)
+([modifiers.h](https://github.com/qmk/qmk_firmware/blob/75402109e9a3d0d0ec129bb7132aae1367c8bf9d/quantum/modifiers.h#L16)より引用)
 
 HIDとは違うデータ構造になっており、HIDでは8ビット必要だったのが5ビットに圧縮されています。
 
