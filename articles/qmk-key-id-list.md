@@ -167,14 +167,12 @@ modifierのデコード方法は下部を参照。
 
 ## QK_DEF_LAYER (0x5240-0x525F)
 
-| 項目             | 内容                               |
-| ---------------- | ---------------------------------- |
-| 機能名           | Default layer                      |
+| 項目       | 内容                                 |
+| -------- | ---------------------------------- |
+| 機能名      | Default layer                      |
 | キーマップマクロ | `DEF(n)`                           |
-| 説明             | 押してる間だけレイヤ有効化         |
-| URL              | https://docs.qmk.fm/feature_layers |
-
-`DEF(n)`: デフォルトレイヤ設定
+| 説明       | デフォルトレイヤ設定                         |
+| URL      | https://docs.qmk.fm/feature_layers |
 
 ```
 [ 8bit ][ 8bit ]
@@ -244,12 +242,12 @@ modifierのデコード方法は下部を参照。
 
 ## QK_SWAP_HANDS (0x5600-0x56FF)
 
-| 項目             | 内容                                    |
-| ---------------- | --------------------------------------- |
-| 機能名           | Swap hands                              |
-| キーマップマクロ | `SH_T(kc)` ?                            |
-| 説明             |                                         |
-| URL              | https://docs.qmk.fm/features/swap_hands |
+| 項目       | 内容                                      |
+| -------- | --------------------------------------- |
+| 機能名      | Swap hands                              |
+| キーマップマクロ | `SH_T(kc)`                              |
+| 説明       | 分割キーボードの左右を一時的に切り替えるSwap関連のキーコード        |
+| URL      | https://docs.qmk.fm/features/swap_hands |
 
 ```
 [ 8bit ][ 8bit ]
