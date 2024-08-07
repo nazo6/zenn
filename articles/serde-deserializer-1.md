@@ -6,7 +6,6 @@ topics:
 emoji: 🛠️
 title: SerdeのDeserializerを実装する(Part1)
 ---
-
 # 概要
 Serdeで任意の形式のファイルなどをデシリアライズする際にはDeserializerを書く必要があります。この記事では基本的なDeserializerの書き方を解説します。
 正直自分もあまり理解していない部分が多々あるのですが世に出ている情報が少ないので書くことにしました。
@@ -144,9 +143,7 @@ test test::deserialize_true ... ok
 
 failures:
 
-
-- test::deserialize_error stdout 
--
+---- test::deserialize_error stdout -
 thread 'test::deserialize_error' panicked at 'called `Result::unwrap()` on an `Err` value: Unsupported("Unsupported type")', src/lib.rs:61:53
 ```
 `"true"`という文字列が正常に`true`にデシリアライズされ、さらに`"true"`という文字列であっても型がStringであればUnsupportedのエラーが発生していることがわかります。

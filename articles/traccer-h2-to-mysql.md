@@ -6,7 +6,6 @@ topics:
 emoji: 🔄
 title: TraccarのデータをH2からMySQLに移行
 ---
-
 # 概要
 [Traccar](https://www.traccar.org/)を5.9にアプデしたら起動しなくなった。どうやら今までの内部データベース形式はサポートされなくなったみたいです。
 

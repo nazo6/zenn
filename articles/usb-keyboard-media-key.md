@@ -7,7 +7,6 @@ emoji: 💻
 title: USB HIDキーボードでメディアキーを操作する方法
 ---
 
-
 USB HIDでは`0x80`がVolume Up、`0x81`がVolume Downに割り当てられており、さらに`0xED`や`0xEE`でもVolume UpやDownができそうですが、実はこれらは全て動きません(Windowsでは)。
 
 Volume UpやDownを送るためには通常のキーボード用レポートディスクリプタではなく、メディアキー専用のレポートディスクリプタを使うデバイスを作成する必要があります。

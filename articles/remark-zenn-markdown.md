@@ -6,7 +6,6 @@ topics:
 emoji: 📝
 title: RemarkでZenn形式のmarkdownを再現する
 ---
-
 # 概要
 この記事はブログとZennに同時投稿しているのですが、その際に[Zen独自のmarkdown記法](https://zenn.dev/zenn/articles/markdown-guide#zenn-%E7%8B%AC%E8%87%AA%E3%81%AE%E8%A8%98%E6%B3%95)を使いたいときがあります。ブログ側ではmarkdownの表示に`remark`を使っているので`remark`でそれらを表示したいという趣旨です。
 
@@ -42,8 +41,7 @@ title: RemarkでZenn形式のmarkdownを再現する
 ```diff:micromark-extension-directive@2.2.1.patch
 diff --git a/lib/factory-name.js b/lib/factory-name.js
 index 4599862b23fcad95ac6ccc87a35ebca1a86aaa0b..083bbc056f41dd141e15f93e486f619aa7e3c67a 100644
-
- a/lib/factory-name.js
+--- a/lib/factory-name.js
 +++ b/lib/factory-name.js
 @@ -29,11 +29,11 @@ export function factoryName(effects, ok, nok, type) {
  
@@ -61,8 +59,7 @@ index 4599862b23fcad95ac6ccc87a35ebca1a86aaa0b..083bbc056f41dd141e15f93e486f619a
  }
 diff --git a/package.json b/package.json
 index 43ac4e41363a82066fb338ef385bed9eefa83075..0ef29ce297f92a9fedda1a3771bd01b941647690 100644
-
- a/package.json
+--- a/package.json
 +++ b/package.json
 @@ -35,7 +35,6 @@
    ],

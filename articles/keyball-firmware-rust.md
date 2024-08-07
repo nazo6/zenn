@@ -7,7 +7,6 @@ emoji: ⌨
 title: RustでKeyballのファームウェアを書きたい話
 ---
 
-
 KeyballのファームウェアはQMKを使ったC言語のものになっています。ですがやはりRust、使いたいですよね？
 
 間違ってRP2040のProMicroを買ってしまった方がなんとRustでkeyballのファームウェアを作っており、不可能ということはなさそうです。

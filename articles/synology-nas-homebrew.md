@@ -6,7 +6,6 @@ topics:
 emoji: 💭
 title: Synology NASへのHomebrew(linuxbrew)を使ったNeovimのインストール
 ---
-
 # 概要
 Synology NASにいろんなツールをインストールしたいとき(まあ本当はしないほうがいいんですが)、Entwareと呼ばれるツールを使うのが一般的だと思われます。
 しかしながら、Entwareはリポジトリが小さく古めなため他に使えるパッケージマネージャがないかと調べていたところ、Homebrewをインストールできるという情報を見かけて試してみました。

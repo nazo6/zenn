@@ -6,7 +6,6 @@ topics:
 emoji: 📄
 title: tokioで作ったサーバーをdockerで起動すると終了が遅くなるときの対処法
 ---
-
 # 概要
 axumなどを作ってRustでサーバーを作ると`docker compose stop`などが微妙に遅くてイライラだったのでそれを解決する方法です。
 

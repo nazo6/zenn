@@ -6,7 +6,6 @@ topics:
 emoji: 📋
 title: lemonadeでssh先のneovimとクリップボードを共有
 ---
-
 [lemonade](https://github.com/lemonade-command/lemonade)を使えばTCP通信を用いてクリップボードを共有できます。
 
 :::message

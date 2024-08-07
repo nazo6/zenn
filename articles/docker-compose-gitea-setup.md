@@ -6,7 +6,6 @@ topics:
 emoji: 💭
 title: docker-composeでGitea + Gitea Actionsのセットアップ
 ---
-
 # 結論から
 こんな感じのdocker-compose.ymlで良い
 

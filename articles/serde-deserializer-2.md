@@ -6,7 +6,6 @@ topics:
 emoji: 🦞
 title: SerdeのDeserializerを実装する(Part2 JSON編)
 ---
-
 この記事は[Rust Advent Calendar 2023](https://qiita.com/advent-calendar/2023/rust) シリーズ3の19日目の記事です。
 
 前回の[SerdeのDeserializerを実装する(Part1)](https://zenn.dev/nazo6/articles/serde-deserializer-1)の続きとして、この記事ではserdeの公式ドキュメントにある「[Implementing a Deserializer](https://serde.rs/impl-deserializer.html)」というページで実装されているjsonのデシリアライザ(を一部改変したもの)についてチュートリアル風に解説します。逆に言えばこのページの内容を理解していればこの記事を読む必要はないかもしれません…)。

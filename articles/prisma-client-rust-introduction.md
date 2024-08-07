@@ -6,7 +6,6 @@ topics:
 emoji: 📝
 title: prisma-client-rust入門
 ---
-
 # 概要
 [prisma-client-rust](https://prisma.brendonovich.dev/)はJavascript向けのORMである[prisma](https://www.prisma.io/)をRustから使えるようにしたものです。実はprismaのコア部分はRustで書かれているためこういうものも作りやすかったんじゃないかと思います。
 
