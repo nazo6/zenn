@@ -41,7 +41,7 @@ crate-type = ["cdylib"]
 [dependencies]
 wasm-minimal-protocol = { git = "https://github.com/astrale-sharp/wasm-minimal-protocol/" }
 ```
-`crate-type = ["cdylib"]`はwasmにビルドするのに必要です。また、[`wasm-minimal-protocol`](https://github.com/astrale-sharp/wasm-minimal-protocol)クレートでは、関数を先述したプロトコルに合うように変換してくれるマクロを提供してくれています。
+`crate-type = ["cdylib"]`はwasmにビルドするのに必要です。また、[`wasm-minimal-protocol`](https://github.com/astrale-sharp/wasm-minimal-protocol)クレートでは、関数を先述したプロトコルに合うように変換するマクロを提供してくれています。
 また、`.cargo/config.toml`ファイルを作成し、デフォルトでwasmがコンパイルされるようにしておきます。
 
 ```toml:.cargo/config.toml
@@ -189,7 +189,7 @@ CSVやTSVはTypstで読み込めるため後は自由にデータを弄ること
 少し意外だったのですがxlsxって計算結果もファイルの中に保持してあるんですね。これは嬉しい。数式を取りたければコード内の`worksheet_range`を`worksheet_formula`に変えればよさそうです。
 
 # 最後に
-いかがでしたか？かなり簡単にTypstのプラグインを作成できることがお分かり頂けたかと思います。既存の言語のエコシステムを使って比較的容易に複雑なプラグインを開発することができることはTypstの大きな利点になると思いました。
+いかがでしたか？とても簡単にTypstのプラグインを作成できることがお分かり頂けたかと思います。既存の言語のエコシステムを使って比較的容易に複雑なプラグインを開発することができることはTypstの大きな利点だと思います。
 
 ちなみに、パッケージを作ったら[`typst/packages`](https://github.com/typst/packages)リポジトリにPRを送ることで公式のプラグインリストに載り、`import "@preview/..."`でインポートできるようになります。
 
@@ -199,7 +199,7 @@ https://zenn.dev/mkpoli/articles/7e54c1c780ff43
 
 また、今回使用したソースコードは
 
-https://github.com/nazo6/playground/tree/main/typst-plugin
+https://github.com/nazo6/playground/tree/c0fb192f71e71fbbaafcc57673bdc4e931f3dd39/other/typst-plugin
 
 で公開しています。
 
