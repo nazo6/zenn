@@ -8,31 +8,35 @@ topics:
 emoji: 💭
 title: WASMでTypstプラグインを作ろう
 ---
+
 最近話題の組版システムのTypstですが、プラグインシステムを備えておりWASMを使って拡張することが可能です。
 
 https://typst.app/docs/reference/foundations/plugin
 
 プラグインを使うことで従来のTypst言語のみでは難しかった様々な処理を行うことができます。
 
-[公式のパッケージリスト](https://typst.app/docs/packages/)に掲載されているパッケージの中にも内部でWASMプラグインを使用しているものがあります。例えばQuickJSを利用してJavaScriptを実行する「[Jogs](https://github.com/typst/packages/tree/main/packages/preview/jogs/0.2.3)」やMarkdownをTypstに変換する「[cmarker](https://github.com/typst/packages/tree/main/packages/preview/cmarker/0.1.0)」、さらにはLaTeXをTypst構文に変換して表示する(!)「[mitex](https://github.com/mitex-rs/mitex)」なんていうものもあります。
+[公式のパッケージリスト](https://typst.app/docs/packages/)に掲載されているパッケージの中にも内部でWASMプラグインを使用しているものがあります。例えばQuickJSを利用してJavaScriptを実行する「[Jogs](https://github.com/typst/packages/tree/main/packages/preview/jogs/0.2.3)」やMarkdownをTypstに変換する「[cmarker](https://github.com/typst/packages/tree/main/packages/preview/cmarker/0.1.0)」、さらにはLaTeXをTypst構文に変換して表示する(!)「[mitex](https://github.com/mitex-rs/mitex)」というものもあります。
 
-この記事ではRustを使ってTypstのプラグインを作成します。Typst自体Rustで作られているためRustの環境がよく整備されていますが、もちろんWASMにコンパイルできる言語であればどのような言語も使用可能です。ただし、WASIはサポートされていないため、WASIが必須な言語やライブラリを使用する際には[wasi-stub](https://github.com/astrale-sharp/wasm-minimal-protocol?tab=readme-ov-file#wasi-stub)を使用する必要があります。
+この記事ではRustを使ってTypstのプラグインを作成することによりTypstプラグインの基本的な仕組みについて解説します。Typstはそれ自体Rustで作られているためRustでプラグインを書くための環境がよく整備されていますが、WASMにコンパイルできる言語であればどのような言語も使用可能です。ただし、WASIはサポートされていないため、WASIが必須な言語やライブラリを使用する際には[wasi-stub](https://github.com/astrale-sharp/wasm-minimal-protocol?tab=readme-ov-file#wasi-stub)を使用する必要があります。
 
 ZigとCの例が[ここ](https://github.com/astrale-sharp/wasm-minimal-protocol/tree/master/examples)にある他、その他の言語でも[Typstのwasm protocol](https://typst.app/docs/reference/foundations/plugin#protocol)に従って関数をエクスポートすることでTypstプラグインを作成できます。
 
-:::message
-プラグインとパッケージ
+:::message プラグインとパッケージ
 
-Typstでのプラグインというのは`wasm`ファイルのことを指します。一方、パッケージはプラグインをロードする処理などが記述された`typ`ファイルなどを含んだ一連のファイル群のことを指します。パッケージは`wasm`ファイルを含んでいる必要はありません。
+Typstでのプラグインというのは`wasm`ファイルのことを指します。一方、パッケージはプラグインをロードする処理などが記述された`typ`ファイルなどを含んだ一連のファイル群のことを指します。パッケージはwasmプラグインを含まずに`.typ`ファイルのみで構成することもできます。
 :::
-# Greetプラグイン
- まずは`Hello {name}`という文字列を出力するだけのプラグインを作ってみましょう。
+
+# 挨拶プラグイン
+
+まずは引数`name`を受け取り`Hello {name}`という文字列を出力するだけのプラグインを作ってみましょう。
+
 ```
 cargo new --lib typst-greet
 rustup target add wasm32-unknown-unknown
 ```
-を実行してRustのプロジェクトを作り、wasmにビルドできるようにしておきましょう。
-次に`Cargo.toml`に以下を追記します。
+
+を実行してRustのプロジェクトを作り、wasmにビルドできるようにしておいたら次に`Cargo.toml`に以下を追記します。
+
 ```toml:Cargo.toml
 [lib]
 crate-type = ["cdylib"]
@@ -40,6 +44,7 @@ crate-type = ["cdylib"]
 [dependencies]
 wasm-minimal-protocol = { git = "https://github.com/astrale-sharp/wasm-minimal-protocol/" }
 ```
+
 `crate-type = ["cdylib"]`はwasmにビルドするのに必要です。また、[`wasm-minimal-protocol`](https://github.com/astrale-sharp/wasm-minimal-protocol)クレートでは関数をTypstから呼び出すのに必要な諸々をやってくれます。
 また、`.cargo/config.toml`ファイルを作成し、デフォルトでwasmがコンパイルされるようにしておきます。
 
@@ -49,6 +54,7 @@ target = "wasm32-unknown-unknown"
 ```
 
 次に`lib.rs`を以下のように書き換えます。
+
 ```rust:src/lib.rs
 use wasm_minimal_protocol::*;
 
@@ -59,14 +65,19 @@ pub fn greet(name: &[u8]) -> Vec<u8> {
     [b"Hello, ", name, b"!"].concat()
 }
 ```
-`initiate_protocol!()`を実行した後、`wasm_func`アトリビュートを関数に付与することで関数をTypstにエクスポートすることができます。
-エクスポートされた`greet`関数では、バイト列として受け取った引数に`Hello, `を付加してそれをやはりバイト列として返しています。Rustには文字列を表す`String`型がありますが、`Vec<u8>`を返しているのは、Typstのプラグインができることは「バイト列を受け取ってバイト列を返すこと」だからです。(ただし将来的にはマクロを使って型の自動変換ぐらいはしてくれるようになるかも？例えば[`wasm-minimal-protocol`のサンプル](https://github.com/astrale-sharp/wasm-minimal-protocol/blob/master/examples/hello_rust/src/lib.rs)にあるように`Result`型は今でも使えるようです)
+
+`initiate_protocol!()`を実行した後、`wasm_func`アトリビュートを関数に付与することで関数をTypstにエクスポートすることができます。エクスポートされた`greet`関数では、バイト列として受け取った引数に`Hello,`を付加してそれをやはりバイト列として返しています。
+
+Rustには文字列を表す`String`型がありますが、それは使わずに`Vec<u8>`を関数から返しているのに疑問を持ったかもしれません。これは現状Typstのプラグインは「バイト列を受け取ってバイト列を返すこと」しかできないからです。
 
 では実行するために以下のコマンドでビルドします。
+
 ```
 cargo build --release
 ```
+
 `target/wasm32-unknown-unknown/release`ディレクトリ内にwasmが生成されたはずです。では実際にTypstで読み込んでみましょう。作成プロジェクトのルートに以下のようなTypstファイルを作成します。
+
 ```typst:sample.typ
 #let plugin = plugin("./target/wasm32-unknown-unknown/release/typst_greet.wasm")
 
@@ -78,28 +89,35 @@ cargo build --release
 
 #greet("typst")
 ```
-wasmファイルは`plugin`関数で読み込みこまれ、後は通常のメソッドのように使うことができます。ただし、バイト列を渡して受け取ることには注意が必要です。
+
+wasmファイルは`plugin`関数を用いて読み込み、後は通常のメソッドのように使うことができます。ただし、先程記したようにプラグインとのデータのやり取りはバイト列であるため、`bytes`関数を使って引数をバイト列とし、`str`関数を用いて返り値を文字列に戻していることに注意してください。
 
 これを
+
 ```
 typst compile sample.typ
 ```
-でコンパイルすれば…
-![](/images/blog/2024/02/typst-plugin/sample1.png)
+
+でコンパイルすれば… ![](/images/blog/2024/02/typst-plugin/sample1.png)
 このようなpdfファイルが生成されているはずです。非常に簡単ですね。
 
 # Excel読み込みプラグイン
+
 これだけでは面白くないのでもう少し実用的なものを作りましょう。
 
 自分は表を作る時に雑にExcelで作ることが多いのですが、Typstでxlsxファイルは読み込めないのでCSVにいちいち変換しなければならず面倒です。これを簡略化するためにxlsxファイルを直接読み込むTypstプラグインを作ってみましょう。
 
-当然イチからxlsxファイルを読み込む処理を実装するのは非常に大変ですが、プラグインを作るのにRustが使えるということは当然Rustのエコシステムを使えるということです。Rustのエコシステムは結構豊富で、今回の目的にドンピシャな[calamine](https://github.com/tafia/calamine)というクレートを見つけました。Cのラッパーとかでもないのでビルドも難しい所はありません。
+一からxlsxファイルを読み込む処理を実装するとなると非常に大変ですが、プラグインを作るのにRustが使えるということは当然Rustのエコシステムを使えるということです。Rustのエコシステムは結構豊富で、今回の目的にドンピシャな[calamine](https://github.com/tafia/calamine)というクレートを見つけました。Pure
+Rust製なのでビルドも難しい所はありません(Cライブラリが混ざったRustプロジェクトをwasmにコンパイルするのはまあまあ面倒です)。
 
-ということで実際にプラグインを作っていきましょう。まずは前節と同様に`cargo new`でRustプロジェクトを作成してから
+では実際にプラグインを作っていきましょう。まずは前節と同様に`cargo new`でRustプロジェクトを作成してから
+
 ```
 cargo add calamine
 ```
+
 で依存関係を追加し、以下のコードを`lib.rs`に書きます。
+
 ```rust:lib.rs
 use calamine::{Reader, Xlsx, XlsxError};
 use wasm_minimal_protocol::*;
@@ -154,6 +172,7 @@ pub fn get_table(
     Ok(lines.join("\n").into_bytes())
 }
 ```
+
 `get_table`関数が実際の処理内容で、calamineクレートでバイト列として受け取ったxlsxファイルの内容を解析し、引数として指定された範囲の内容を読み取っています。
 読み取ったデータはTypstで解析できるようにtsvの文字列として返しています。Typstの表データとして直接返せれば良いのですがそのような方法は今は無いようです。
 
@@ -177,46 +196,45 @@ pub fn get_table(
   ..get_table("Book1.xlsx", "Sheet1", 1, 1, 4, 10).flatten()
 )
 ```
+
 そしてこちらが上のRustコードから生成されたプラグインWASMを実行するためのファイルです。Rust内の`get_table`関数にxlsxファイルの内容と引数を渡して実行し、tsvとしてパースすることでxlsxファイル内の値を表示しています。
 
 では試しに以下のような`Book1.xlsx`を作って`typst compile`を実行してみましょう。
 ![](/images/blog/2024/02/typst-plugin/sample2_book.png)
 するとこのように期待通りの表が得られました！
 ![](/images/blog/2024/02/typst-plugin/sample2_pdf.png)
-今回始めて知ったのですがxlsxって計算結果もファイルの中に保持してあるんですね。数式を取りたければコード内の`worksheet_range`を`worksheet_formula`に変えればよさそうです。
+今回始めて知ったのですがxlsxでは計算結果もファイルの中に保持してあるようです。数式を取りたければコード内の`worksheet_range`を`worksheet_formula`に変えるといいはずです。
 
 ### ファイルをプラグインから読み込めない理由
-:::message
-このセクションは別に読まなくてもいいです。
-:::
 
 先程のコードでは、わざわざTypstからファイルをバイト列として渡していましたが、Rustから直接IOできたりすれば便利なのではないでしょうか？
 
-そのようなことができない実際的な理由としては、「Typstがサポートしているwasm環境向けターゲットの`wasm32-unknown-unknown`ではファイルを読み込めないから」です。しかしながら、TypstがWASIなどをサポートしておらず、フリースタンディングなwasmターゲットしかないのは意図的なものだと思われます。
+そのようなことができない直接的な理由は「Typstがサポートしているwasm環境向けターゲットの`wasm32-unknown-unknown`ではファイルを読み込めないから」です。しかしこれは意図的な物であると考えられます。
 
-というのもtypstの関数は純粋でなければならないからです。これによりドキュメントの再現性が確保され、高速な差分コンパイルが実現されています。ここでもしプラグインから外部にアクセスできてしまうと全く純粋ではなくなってしまうわけですね。
+というのもtypstの関数は純粋でなければならないからです。これによりドキュメントの再現性が確保され、高速な差分コンパイルが実現されています。ここでもしプラグインから外部の環境にアクセスできてしまうと全く純粋ではなくなってしまうわけですね。
 
 なので、プラグイン内で状態を保持することもできません。例えば以下のようなコードを考えてみましょう。
+
 ```rust
+use std::sync::atomic::{AtomicUsize, Ordering};
+
 use wasm_minimal_protocol::*;
 
 initiate_protocol!();
 
-static mut COUNTER: u32 = 0;
+static COUNTER: AtomicUsize = AtomicUsize::new(0);
 
 #[wasm_func]
 pub fn count() -> Vec<u8> {
-    unsafe {
-        COUNTER += 1;
-    }
-    format!("{}", unsafe { COUNTER }).into_bytes()
+    let count = COUNTER.fetch_add(1, Ordering::SeqCst);
+    format!("{}", count).into_bytes()
 }
 ```
-unsafeなどはとりあえず無視して頂くとこれは`count`が呼び出される度にCOUNTERを加算するコードなのですが、これをTypstから何回呼び出しても1が表示されます。
 
-とまあ長々と書きましたが、実はこのことはTypstのドキュメントページに全部書いてあります。
+このコードは、`count`が呼び出される度にCOUNTERに1加算するコードなのですが、これをTypstから複数回呼び出しても結果は全て0になります。これがTypstのプラグインが純粋であるということです。
 
 # 最後に
+
 いかがでしたか？とても簡単にTypstのプラグインを作成できることがお分かり頂けたかと思います。既存の言語のエコシステムを使って比較的容易に複雑なプラグインを開発することができることはTypstの大きな利点だと思います。
 
 ちなみに、パッケージを作ったら[`typst/packages`](https://github.com/typst/packages)リポジトリにPRを送ることで公式のプラグインリストに載り、`import "@preview/..."`でインポートできるようになります。
@@ -233,4 +251,7 @@ https://github.com/nazo6/playground/tree/c0fb192f71e71fbbaafcc57673bdc4e931f3dd3
 
 是非みなさんもTypstプラグインを作ってみてください。
 
-> この記事は [https://note.nazo6.dev/blog/wasm-typst-plugin](https://note.nazo6.dev/blog/wasm-typst-plugin) とのクロスポストです。
+> この記事は
+> [https://note.nazo6.dev/blog/wasm-typst-plugin](https://note.nazo6.dev/blog/wasm-typst-plugin)
+> とのクロスポストです。
+
