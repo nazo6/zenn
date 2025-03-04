@@ -21,8 +21,12 @@ https://typst.app/docs/reference/foundations/plugin
 
 ZigとCの例が[ここ](https://github.com/astrale-sharp/wasm-minimal-protocol/tree/master/examples)にある他、その他の言語でも[Typstのwasm protocol](https://typst.app/docs/reference/foundations/plugin#protocol)に従って関数をエクスポートすることでTypstプラグインを作成できます。
 
-:::message プラグインとパッケージ
+:::message
+
+プラグインとパッケージ
+
 Typstでのプラグインというのは`wasm`ファイルのことを指します。一方、パッケージはプラグインをロードする処理などが記述された`typ`ファイルなどを含んだ一連のファイル群のことを指します。パッケージはwasmプラグインを含まずに`.typ`ファイルのみで構成することもできます。
+
 :::
 
 # 挨拶プラグイン
