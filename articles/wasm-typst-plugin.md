@@ -258,3 +258,6 @@ https://github.com/nazo6/playground/tree/c0fb192f71e71fbbaafcc57673bdc4e931f3dd3
 > [https://note.nazo6.dev/blog/wasm-typst-plugin](https://note.nazo6.dev/blog/wasm-typst-plugin)
 > とのクロスポストです。
 
+
+
+> この記事は [https://note.nazo6.dev/blog/wasm-typst-plugin](https://note.nazo6.dev/blog/wasm-typst-plugin) とのクロスポストです。
