@@ -1,3 +1,12 @@
+---
+published: true
+type: idea
+topics:
+  - Rust
+emoji: 🌀
+blog_crosspost: false
+title: 「Rustが嫌いです。」の感想
+---
 
 https://zenn.dev/miguel/articles/f052de93fc9980
 
