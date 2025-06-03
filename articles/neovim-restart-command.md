@@ -71,10 +71,42 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 セッションの保存には[possession.nvim](https://github.com/jedrzejboczar/possession.nvim)を使っています。他のプラグインであったり通常の`:mksession`でもまあ同じ感じだと思います。
 
+## 追記(2025/06)
+Neovim 0.12 (現時点のnightly)で`restart`コマンドが実装されました！これはNeovimのUI部分はそのまま、コア部分のみを再起動できるコマンドです(NeovimではUI部分がclient,コア部分がserverと呼ばれており、このコマンドはserverを再起動します)。これを使えばNeovimを終了することなく再起動を行うことができます。GUIクライアントについてはそれぞれで対応が必要なようですがそのうちできるようになるでしょう
+
+ただ、`restart`コマンドではセッションは復元されないので私は`possession.nvim`を用いて以下のようにセッション復元を行う`Restart`コマンドを使っています。
+
+```lua
+vim.api.nvim_create_autocmd("VimEnter", {
+  nested = true,
+  callback = function()
+    if vim.g.NVIM_RESTARTING then
+      vim.g.NVIM_RESTARTING = false
+      local session = require "possession.session"
+      local ok = pcall(session.load, "restart")
+      if ok then
+        require("possession.session").delete("restart", { no_confirm = true })
+        vim.opt.cmdheight = 1
+      end
+    end
+  end,
+})
+
+vim.api.nvim_create_user_command("Restart", function()
+  require("possession.session").save("restart", { no_confirm = true })
+  vim.cmd [[silent! bufdo bwipeout]]
+
+  vim.g.NVIM_RESTARTING = true
+
+  vim.cmd [[restart!]]
+end, {})
+
+```
+
 # 感想
 
 自動でセッションのロード/保存をしている人にとってはあまり気にする問題ではないのかもしれませんが自分は普段セッションをあまり使わないのでこのコマンドでNeovim盆栽イテレーションを速く回せるようになった気がします。
-設定をいじってる時以外でもなんか調子悪いから再起動したいけどこのワークスペースを維持したいという時にも結構便利でよかったです。
+設定をいじってる時以外でもなんか調子悪いから再起動したいけどこのワークスペースを維持したいという時にも便利です。
 
 
 > この記事は [https://note.nazo6.dev/blog/neovim-restart-command](https://note.nazo6.dev/blog/neovim-restart-command) とのクロスポストです。
