@@ -53,6 +53,9 @@ scoop install putty
 Access granted. Press Return to begin session.
 ```
 というメッセージが出るはずです。これで接続準備は完了です。
+
+> 追記
+> Linuxだとsshのオプションに`-oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedAlgorithms=ssh-rsa`が必要？
 # 3. OSのインストール
 お好きなVNCビューアを使って`localhost:5900`に接続します。するとこのようにブートメニューが出るはずです。
 ![](/images/blog/2024/06/oci-debian/uefi.png)
