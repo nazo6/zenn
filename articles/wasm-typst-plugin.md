@@ -101,7 +101,7 @@ wasmファイルは`plugin`関数を用いて読み込み、後は通常のメ�
 typst compile sample.typ
 ```
 
-でコンパイルすれば… ![](/images/blog/2024/02/typst-plugin/sample1.png)
+でコンパイルすれば… ![](//images/blog/2024/02/typst-plugin/sample1.png)
 このようなpdfファイルが生成されているはずです。非常に簡単ですね。
 
 # Excel読み込みプラグイン
@@ -203,9 +203,9 @@ pub fn get_table(
 そしてこちらが上のRustコードから生成されたプラグインWASMを実行するためのファイルです。Rust内の`get_table`関数にxlsxファイルの内容と引数を渡して実行し、tsvとしてパースすることでxlsxファイル内の値を表示しています。
 
 では試しに以下のような`Book1.xlsx`を作って`typst compile`を実行してみましょう。
-![](/images/blog/2024/02/typst-plugin/sample2_book.png)
+![](//images/blog/2024/02/typst-plugin/sample2_book.png)
 するとこのように期待通りの表が得られました！
-![](/images/blog/2024/02/typst-plugin/sample2_pdf.png)
+![](//images/blog/2024/02/typst-plugin/sample2_pdf.png)
 今回始めて知ったのですがxlsxでは計算結果もファイルの中に保持してあるようです。数式を取りたければコード内の`worksheet_range`を`worksheet_formula`に変えるといいはずです。
 
 ### ファイルをプラグインから読み込めない理由
