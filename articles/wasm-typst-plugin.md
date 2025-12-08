@@ -11,7 +11,7 @@ title: WASMでTypstプラグインを作ろう
 
 最近話題の組版システムのTypstですが、プラグインシステムを備えておりWASMを使って拡張することが可能です。
 
-https://typst.app/docs/reference/foundations/plugin
+@[card](https://typst.app/docs/reference/foundations/plugin)
 
 プラグインを使うことで従来のTypst言語のみでは難しかった様々な処理を行うことができます。
 
@@ -101,7 +101,7 @@ wasmファイルは`plugin`関数を用いて読み込み、後は通常のメ�
 typst compile sample.typ
 ```
 
-でコンパイルすれば… ![](/images/blog/2024/02/typst-plugin/sample1.png)
+でコンパイルすれば… ![](/images/58419b9b2e52.png)
 このようなpdfファイルが生成されているはずです。非常に簡単ですね。
 
 # Excel読み込みプラグイン
@@ -203,9 +203,9 @@ pub fn get_table(
 そしてこちらが上のRustコードから生成されたプラグインWASMを実行するためのファイルです。Rust内の`get_table`関数にxlsxファイルの内容と引数を渡して実行し、tsvとしてパースすることでxlsxファイル内の値を表示しています。
 
 では試しに以下のような`Book1.xlsx`を作って`typst compile`を実行してみましょう。
-![](/images/blog/2024/02/typst-plugin/sample2_book.png)
+![](/images/b9e98a85f34f.png)
 するとこのように期待通りの表が得られました！
-![](/images/blog/2024/02/typst-plugin/sample2_pdf.png)
+![](/images/263f81073e9d.png)
 今回始めて知ったのですがxlsxでは計算結果もファイルの中に保持してあるようです。数式を取りたければコード内の`worksheet_range`を`worksheet_formula`に変えるといいはずです。
 
 ### ファイルをプラグインから読み込めない理由
@@ -244,14 +244,15 @@ pub fn count() -> Vec<u8> {
 
 参考記事:
 
-https://zenn.dev/mkpoli/articles/7e54c1c780ff43
+@[card](https://zenn.dev/mkpoli/articles/7e54c1c780ff43)
 
 また、今回使用したソースコードは
 
-https://github.com/nazo6/playground/tree/c0fb192f71e71fbbaafcc57673bdc4e931f3dd39/other/typst-plugin
+@[card](https://github.com/nazo6/playground/tree/c0fb192f71e71fbbaafcc57673bdc4e931f3dd39/other/typst-plugin)
 
 で公開しています。
 
 是非みなさんもTypstプラグインを作ってみてください。
 
-> この記事は [https://note.nazo6.dev/blog/wasm-typst-plugin](https://note.nazo6.dev/blog/wasm-typst-plugin) とのクロスポストです。
+
+> この記事は[個人ブログ](https://nazo6.dev/blog/article/wasm-typst-plugin)とクロスポストしています。

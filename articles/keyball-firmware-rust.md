@@ -11,8 +11,7 @@ KeyballのファームウェアはQMKを使ったC言語のものになってい
 
 間違ってRP2040のProMicroを買ってしまった方がなんとRustでkeyballのファームウェアを作っており、不可能ということはなさそうです。
 
-https://hikalium.hatenablog.jp/entry/2021/12/31/150738
-
+@[card](https://hikalium.hatenablog.jp/entry/2021/12/31/150738)
 
 ということでハードウェアの知識が全く無いながらKeyballのファームウェアをRustで書くことにチャレンジしてみました。
 
@@ -21,18 +20,22 @@ https://hikalium.hatenablog.jp/entry/2021/12/31/150738
 :::
 
 # RustでのAVR向けプログラム作成
+
 通常、Keyballに搭載するProMicroにはAVRのATMega32U4というのが載っています。
 ではRustでAVR向けのエコシステムがどれだけ充実しているのかという話ですが、[avr-hal](https://github.com/Rahix/avr-hal)というクレートが存在しており、さらにATMega32U4もサポートしているようです。これはいいですね。
 
 また、ProMicro用のテンプレートが用意されていて、
+
 ```
 cargo +stable install ravedude
 cargo install cargo-generate
 cargo generate --git https://github.com/Rahix/avr-hal-template.git
 ```
+
 を実行後にProMicroのテンプレートを選択すればLチカのコードを用意してくれます。
 
 内容はこのようになっています。
+
 ```rust
 #![no_std]
 #![no_main]
@@ -61,13 +64,14 @@ RAVEDUDE_PORT=COM13 cargo run --release
 コンパイルが終わったらリセットしたらEnterを押してねと言われるのでその通りにすればプログラムが書き込まれて無事Lチカされるはずです。
 とても簡単にできて感動です。
 
-また、RAVEDUDE_PORTはUSBシリアルポートの番号です。筆者はWindowsを使用しているので`COM{X}`という値になります。
+また、RAVEDUDE\_PORTはUSBシリアルポートの番号です。筆者はWindowsを使用しているので`COM{X}`という値になります。
 この値はQMK Toolboxなどを使うと簡単に調べることができます。
 
 # USB接続
+
 さて、Lチカはできましたがキーボードとして使う以上USBで通信ができなければいけません。USBスタックを自力で書くのは流石にキツそうだなと思いクレートを探し回っていたところ`atmega-usbd`という正に望み通りのクレートがありました。
 
-https://github.com/agausmann/atmega-usbd
+@[card](https://github.com/agausmann/atmega-usbd)
 
 Rustでは[usb-device](https://github.com/rust-embedded-community/usb-device)というクレートが基盤となるトレイトを提供しており、そのトレイトを各ターゲット向けに実装することで`usb-device`上のライブラリである[usbd-hid](https://github.com/twitchyliquid64/usbd-hid)などのクレートを使えるようになっています。
 そして`atmega-usbd`は`usb-device`のATMega向け実装というわけです。
@@ -259,22 +263,27 @@ fn panic(info: &PanicInfo) -> ! {
 #[no_mangle]
 pub unsafe extern "C" fn rust_eh_personality() -> () {}
 ```
+
 これはピンa2の列が押されている時に`a`という文字を送信するプログラムになります。また、panic時にLチカをするので分かりやすくなっています。
 
 まだ全くキーボードにはなっていませんが、これを拡張していけば少なくともキーボードとして使えるファームウェアを書くこと自体はそこまで難しくなさそうです。
 
 ちなみにこの時点で容量は
+
 ```
 avrdude.exe: 11740 bytes of flash verified
 ```
+
 と、約12kbとなっています。ここからフル機能のキーボードやらトラックボールやらを実装して28kbに収まるかは正直よくわかりません。
+
 ## USBが認識されない？
+
 ここまで来ればあとはがんがんコードを書いていくだけ…と思ったのですがこのファームウェアには大分致命的な欠点があり、接続した際に7割ぐらいの確率でエラーになってしまいます。
 
 うまくいくと
-![](/images/blog/2024/03/keyball-firm-rust/success.png)
+![](/images/f145c9db6af6.png)
 のように、きちんとキーボードとして認識されていますが、失敗すると
-![](/images/blog/2024/03/keyball-firm-rust/fail.png)
+![](/images/2253942ea162.png)
 のようにエラーとなってしまいます。
 
 公式ファームウェアだとこうはならないので恐らく何かソフトウェアの問題だとは思うのですが…
@@ -282,15 +291,17 @@ avrdude.exe: 11740 bytes of flash verified
 
 この記事で使用したコードは
 
-https://github.com/nazo6/keyball-rust-firmware
+@[card](https://github.com/nazo6/keyball-rust-firmware)
 
 に置いておきます。
 
 # 最後に
+
 なんだか中途半端な所で終わってしまって申し訳ないのですがこの問題さえ解決できればあとは懸念点は容量ぐらいなので、RustでKeyballのファームを書くのも現実的になるのではないかと思います。
 
 もしどなたか解決策など分かったら是非教えて頂きたいです。
 
 (もしかしたらRP2040版のほうが容量も多いし今なら[embassy-rp](https://docs.embassy.dev/embassy-rp/)とかもあるし作り易かったりして…？)
 
-> この記事は [https://note.nazo6.dev/blog/keyball-firmware-rust](https://note.nazo6.dev/blog/keyball-firmware-rust) とのクロスポストです。
+
+> この記事は[個人ブログ](https://nazo6.dev/blog/article/keyball-firmware-rust)とクロスポストしています。

@@ -8,8 +8,7 @@ emoji: ⌨️
 title: QMKキーIDとアクションのすべて
 ---
 
-
-https://github.com/qmk/qmk_firmware/blob/master/quantum/keycodes.h
+@[card](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycodes.h)
 
 にあるQMKのキーコードのアクションごとの範囲をまとめました。ほぼ全てのQMKのアクションを網羅しているはずです。
 
@@ -24,24 +23,24 @@ QMKでは2バイトの値でほとんど全てのキーマップを表してお�
 
 これら2バイトの値によりキーコードが表現され、全てのキーコードは
 
-https://docs.qmk.fm/keycodes
+@[card](https://docs.qmk.fm/keycodes)
 
 より確認できます。
 
 以下では各キーマップの種類とその説明、そしてアドレス範囲及びそのデータ構造を記しています。このデータ構造を元に各キーコードからデータを求める実際の計算は
 
-https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum_keycodes.h
+@[card](https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum_keycodes.h)
 
 にあります。
 
 ## 凡例
 
-| 項目             | 内容                                                                      |
-| ---------------- | ------------------------------------------------------------------------- |
-| 機能名           | QMKの機能名です。正式な名前が見つからなかったら適当なものをつけています。 |
-| キーマップマクロ | キーマップを作成する際の該当するマクロや定数の名前です。                  |
-| 説明             | その機能の説明です。                                                      |
-| URL              | 参考URLです。                                                             |
+| 項目       | 内容                                     |
+| -------- | -------------------------------------- |
+| 機能名      | QMKの機能名です。正式な名前が見つからなかったら適当なものをつけています。 |
+| キーマップマクロ | キーマップを作成する際の該当するマクロや定数の名前です。           |
+| 説明       | その機能の説明です。                             |
+| URL      | 参考URLです。                               |
 
 ```
 ↓上位ビット
@@ -54,14 +53,14 @@ https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum_keycodes.h
 
 ↑各キーコードで各ビットが何を表しているかの表示です。
 
-## QK_BASIC (0x0000-0x00FF)
+## QK\_BASIC (0x0000-0x00FF)
 
-| 項目             | 内容                               |
-| ---------------- | ---------------------------------- |
-| 機能名           | 特になし                           |
-| キーマップマクロ | `KC_`で始まる物                    |
-| 説明             | 下のKeycodeの項目を参照            |
-| URL              | https://docs.qmk.fm/keycodes_basic |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | 特になし                                 |
+| キーマップマクロ | `KC_`で始まる物                           |
+| 説明       | 下のKeycodeの項目を参照                      |
+| URL      | <https://docs.qmk.fm/keycodes_basic> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -69,14 +68,14 @@ https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum_keycodes.h
         ^^^^^^^^ <-- Keycode  8bit
 ```
 
-## QK_MODS (0x0100-0x1FFF)
+## QK\_MODS (0x0100-0x1FFF)
 
-| 項目             | 内容                                                                   |
-| ---------------- | ---------------------------------------------------------------------- |
-| 機能名           | Modifier                                                               |
-| キーマップマクロ | `LCTL(kc)`,`LSFT(kc)`など                                              |
-| 説明             | Modとキー同時押し。Modのデコード方法については下のModifierの項目を参照 |
-| URL              | https://docs.qmk.fm/feature_advanced_keycodes                          |
+| 項目       | 内容                                              |
+| -------- | ----------------------------------------------- |
+| 機能名      | Modifier                                        |
+| キーマップマクロ | `LCTL(kc)`,`LSFT(kc)`など                         |
+| 説明       | Modとキー同時押し。Modのデコード方法については下のModifierの項目を参照      |
+| URL      | <https://docs.qmk.fm/feature_advanced_keycodes> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -87,14 +86,14 @@ https://github.com/qmk/qmk_firmware/blob/master/quantum/quantum_keycodes.h
 
 modifierのデコード方法は下部を参照。
 
-## QK_MOD_TAP (0x2000-0x3FFF)
+## QK\_MOD\_TAP (0x2000-0x3FFF)
 
-| 項目             | 内容                        |
-| ---------------- | --------------------------- |
-| 機能名           | Mod-Tap                     |
-| キーマップマクロ | `MT(mod, kc)`               |
-| 説明             | Tapでキー,HoldでMod。       |
-| URL              | https://docs.qmk.fm/mod_tap |
+| 項目       | 内容                            |
+| -------- | ----------------------------- |
+| 機能名      | Mod-Tap                       |
+| キーマップマクロ | `MT(mod, kc)`                 |
+| 説明       | Tapでキー,HoldでMod。              |
+| URL      | <https://docs.qmk.fm/mod_tap> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -103,14 +102,14 @@ modifierのデコード方法は下部を参照。
         ^^^^^^^^ <-- Keycode  8bit
 ```
 
-## QK_LAYER_TAP (0x4000-0x4FFF)
+## QK\_LAYER\_TAP (0x4000-0x4FFF)
 
-| 項目             | 内容                                                                                                                    |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| 機能名           | Layer-Tap                                                                                                               |
-| キーマップマクロ | `LT(layer, kc)`                                                                                                         |
-| 説明             | Tapでキー,HoldでLayer。他のレイヤ関連キーは5bitつまり32レイヤまでいけるがこれは4bitなので16レイヤまでしか指定できない。 |
-| URL              | https://docs.qmk.fm/feature_layers                                                                                      |
+| 項目       | 内容                                                                       |
+| -------- | ------------------------------------------------------------------------ |
+| 機能名      | Layer-Tap                                                                |
+| キーマップマクロ | `LT(layer, kc)`                                                          |
+| 説明       | Tapでキー,HoldでLayer。他のレイヤ関連キーは5bitつまり32レイヤまでいけるがこれは4bitなので16レイヤまでしか指定できない。 |
+| URL      | <https://docs.qmk.fm/feature_layers>                                     |
 
 ```
 [ 8bit ][ 8bit ]
@@ -119,14 +118,14 @@ modifierのデコード方法は下部を参照。
         ^^^^^^^^ <-- Keycode  8bit
 ```
 
-## QK_LAYER_MOD (0x5000-0x51FF)
+## QK\_LAYER\_MOD (0x5000-0x51FF)
 
-| 項目             | 内容                                                    |
-| ---------------- | ------------------------------------------------------- |
-| 機能名           | Layer-Mod                                               |
-| キーマップマクロ | `LM(layer, mod)`                                        |
-| 説明             | Hold時に`MO`とmod送信を同時にやる。これも16レイヤまで。 |
-| URL              | https://docs.qmk.fm/feature_layers                      |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | Layer-Mod                            |
+| キーマップマクロ | `LM(layer, mod)`                     |
+| 説明       | Hold時に`MO`とmod送信を同時にやる。これも16レイヤまで。   |
+| URL      | <https://docs.qmk.fm/feature_layers> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -135,14 +134,14 @@ modifierのデコード方法は下部を参照。
            ^^^^^ <-- Modifier 5bit
 ```
 
-## QK_TO (0x5200-0x521F)
+## QK\_TO (0x5200-0x521F)
 
-| 項目             | 内容                                         |
-| ---------------- | -------------------------------------------- |
-| 機能名           | TO                                           |
-| キーマップマクロ | `TO(n)`                                      |
-| 説明             | このレイヤを有効化して他のレイヤを無効にする |
-| URL              | https://docs.qmk.fm/feature_layers           |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | TO                                   |
+| キーマップマクロ | `TO(n)`                              |
+| 説明       | このレイヤを有効化して他のレイヤを無効にする               |
+| URL      | <https://docs.qmk.fm/feature_layers> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -150,14 +149,14 @@ modifierのデコード方法は下部を参照。
            ^^^^^ <-- Layer 5bit
 ```
 
-## QK_MOMENTARY (0x5220-0x523F)
+## QK\_MOMENTARY (0x5220-0x523F)
 
-| 項目             | 内容                               |
-| ---------------- | ---------------------------------- |
-| 機能名           | Momentary layer                    |
-| キーマップマクロ | `MO(n)`                            |
-| 説明             | 押してる間だけレイヤ有効化         |
-| URL              | https://docs.qmk.fm/feature_layers |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | Momentary layer                      |
+| キーマップマクロ | `MO(n)`                              |
+| 説明       | 押してる間だけレイヤ有効化                        |
+| URL      | <https://docs.qmk.fm/feature_layers> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -165,14 +164,14 @@ modifierのデコード方法は下部を参照。
            ^^^^^ <-- Layer 5bit
 ```
 
-## QK_DEF_LAYER (0x5240-0x525F)
+## QK\_DEF\_LAYER (0x5240-0x525F)
 
-| 項目       | 内容                                 |
-| -------- | ---------------------------------- |
-| 機能名      | Default layer                      |
-| キーマップマクロ | `DEF(n)`                           |
-| 説明       | デフォルトレイヤ設定                         |
-| URL      | https://docs.qmk.fm/feature_layers |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | Default layer                        |
+| キーマップマクロ | `DEF(n)`                             |
+| 説明       | デフォルトレイヤ設定                           |
+| URL      | <https://docs.qmk.fm/feature_layers> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -180,14 +179,14 @@ modifierのデコード方法は下部を参照。
            ^^^^^ <-- Layer 5bit
 ```
 
-## QK_TOGGLE_LAYER (0x5260-0x527F)
+## QK\_TOGGLE\_LAYER (0x5260-0x527F)
 
-| 項目             | 内容                               |
-| ---------------- | ---------------------------------- |
-| 機能名           | Toggle layer                       |
-| キーマップマクロ | `TG(n)`                            |
-| 説明             | 押下でレイヤの有効無効切り替え     |
-| URL              | https://docs.qmk.fm/feature_layers |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | Toggle layer                         |
+| キーマップマクロ | `TG(n)`                              |
+| 説明       | 押下でレイヤの有効無効切り替え                      |
+| URL      | <https://docs.qmk.fm/feature_layers> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -195,14 +194,14 @@ modifierのデコード方法は下部を参照。
            ^^^^^ <-- Layer 5bit
 ```
 
-## QK_ONE_SHOT_LAYER (0x5280-0x529F)
+## QK\_ONE\_SHOT\_LAYER (0x5280-0x529F)
 
-| 項目             | 内容                              |
-| ---------------- | --------------------------------- |
-| 機能名           | One shot layer                    |
-| キーマップマクロ | `OSL(n)`                          |
-| 説明             | 次のキー押下時にこのレイヤを使用  |
-| URL              | https://docs.qmk.fm/one_shot_keys |
+| 項目       | 内容                                  |
+| -------- | ----------------------------------- |
+| 機能名      | One shot layer                      |
+| キーマップマクロ | `OSL(n)`                            |
+| 説明       | 次のキー押下時にこのレイヤを使用                    |
+| URL      | <https://docs.qmk.fm/one_shot_keys> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -210,14 +209,14 @@ modifierのデコード方法は下部を参照。
            ^^^^^ <-- Layer 5bit
 ```
 
-## QK_ONE_SHOT_MOD (0x52A0-0x52BF)
+## QK\_ONE\_SHOT\_MOD (0x52A0-0x52BF)
 
-| 項目             | 内容                              |
-| ---------------- | --------------------------------- |
-| 機能名           | One shot mod                      |
-| キーマップマクロ | `OSM(n)`                          |
-| 説明             | 次のキー押下時にこのModを送信     |
-| URL              | https://docs.qmk.fm/one_shot_keys |
+| 項目       | 内容                                  |
+| -------- | ----------------------------------- |
+| 機能名      | One shot mod                        |
+| キーマップマクロ | `OSM(n)`                            |
+| 説明       | 次のキー押下時にこのModを送信                    |
+| URL      | <https://docs.qmk.fm/one_shot_keys> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -225,14 +224,14 @@ modifierのデコード方法は下部を参照。
            ^^^^^ <-- Modifier 5bit
 ```
 
-## QK_LAYER_TAP_TOGGLE (0x52C0-0x52DF)
+## QK\_LAYER\_TAP\_TOGGLE (0x52C0-0x52DF)
 
-| 項目             | 内容                                                  |
-| ---------------- | ----------------------------------------------------- |
-| 機能名           | Layer tap toggle                                      |
-| キーマップマクロ | `TT(n)`                                               |
-| 説明             | 普段はMOのように働くが何回かtapしてるとTGになるらしい |
-| URL              | https://docs.qmk.fm/feature_layers                    |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | Layer tap toggle                     |
+| キーマップマクロ | `TT(n)`                              |
+| 説明       | 普段はMOのように働くが何回かtapしてるとTGになるらしい       |
+| URL      | <https://docs.qmk.fm/feature_layers> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -240,14 +239,14 @@ modifierのデコード方法は下部を参照。
            ^^^^^ <-- Layer 5bit
 ```
 
-## QK_SWAP_HANDS (0x5600-0x56FF)
+## QK\_SWAP\_HANDS (0x5600-0x56FF)
 
-| 項目       | 内容                                      |
-| -------- | --------------------------------------- |
-| 機能名      | Swap hands                              |
-| キーマップマクロ | `SH_T(kc)`                              |
-| 説明       | 分割キーボードの左右を一時的に切り替えるSwap関連のキーコード        |
-| URL      | https://docs.qmk.fm/features/swap_hands |
+| 項目       | 内容                                        |
+| -------- | ----------------------------------------- |
+| 機能名      | Swap hands                                |
+| キーマップマクロ | `SH_T(kc)`                                |
+| 説明       | 分割キーボードの左右を一時的に切り替えるSwap関連のキーコード          |
+| URL      | <https://docs.qmk.fm/features/swap_hands> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -255,14 +254,14 @@ modifierのデコード方法は下部を参照。
         ^^^^^^^^ <-- Keycode  8bit
 ```
 
-## QK_TAP_DANCE (0x5700-0x57FF)
+## QK\_TAP\_DANCE (0x5700-0x57FF)
 
-| 項目             | 内容                                   |
-| ---------------- | -------------------------------------- |
-| 機能名           | Tap dance                              |
-| キーマップマクロ |                                        |
-| 説明             | キーを何回押したかで動作を変えれる     |
-| URL              | https://docs.qmk.fm/features/tap_dance |
+| 項目       | 内容                                       |
+| -------- | ---------------------------------------- |
+| 機能名      | Tap dance                                |
+| キーマップマクロ |                                          |
+| 説明       | キーを何回押したかで動作を変えれる                        |
+| URL      | <https://docs.qmk.fm/features/tap_dance> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -270,14 +269,14 @@ modifierのデコード方法は下部を参照。
         ^^^^^^^^ <-- tap dance id?  8bit
 ```
 
-## QK_MAGIC (0x7000-0x70FF)
+## QK\_MAGIC (0x7000-0x70FF)
 
-| 項目             | 内容                               |
-| ---------------- | ---------------------------------- |
-| 機能名           | Magic Key                          |
-| キーマップマクロ |                                    |
-| 説明             |                                    |
-| URL              | https://docs.qmk.fm/keycodes_magic |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | Magic Key                            |
+| キーマップマクロ |                                      |
+| 説明       |                                      |
+| URL      | <https://docs.qmk.fm/keycodes_magic> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -285,14 +284,14 @@ modifierのデコード方法は下部を参照。
         ^^^^^^^^ <-- data  8bit
 ```
 
-## QK_MIDI (0x7100-0x71FF)
+## QK\_MIDI (0x7100-0x71FF)
 
-| 項目             | 内容                              |
-| ---------------- | --------------------------------- |
-| 機能名           | MIDI                              |
-| キーマップマクロ | `QK_MIDI_`                        |
-| 説明             | MIDIキー。詳細は省略。            |
-| URL              | https://docs.qmk.fm/features/midi |
+| 項目       | 内容                                  |
+| -------- | ----------------------------------- |
+| 機能名      | MIDI                                |
+| キーマップマクロ | `QK_MIDI_`                          |
+| 説明       | MIDIキー。詳細は省略。                       |
+| URL      | <https://docs.qmk.fm/features/midi> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -300,14 +299,14 @@ modifierのデコード方法は下部を参照。
         ^^^^^^^^ <-- Midi key 8bit
 ```
 
-## QK_SEQUENCER (0x7200-0x73FF)
+## QK\_SEQUENCER (0x7200-0x73FF)
 
-| 項目             | 内容                                   |
-| ---------------- | -------------------------------------- |
-| 機能名           | Sequencer                              |
-| キーマップマクロ |                                        |
-| 説明             | Midiに関係した何からしい               |
-| URL              | https://docs.qmk.fm/features/sequencer |
+| 項目       | 内容                                       |
+| -------- | ---------------------------------------- |
+| 機能名      | Sequencer                                |
+| キーマップマクロ |                                          |
+| 説明       | Midiに関係した何からしい                           |
+| URL      | <https://docs.qmk.fm/features/sequencer> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -315,14 +314,14 @@ modifierのデコード方法は下部を参照。
        ^^^^^^^^^ <-- data  9bit
 ```
 
-## QK_JOYSTICK (0x7400-0x743F)
+## QK\_JOYSTICK (0x7400-0x743F)
 
-| 項目             | 内容                                  |
-| ---------------- | ------------------------------------- |
-| 機能名           | Joystick                              |
-| キーマップマクロ | `QK_JOYSTICK_`                        |
-| 説明             | ジョイスティック。                    |
-| URL              | https://docs.qmk.fm/features/joystick |
+| 項目       | 内容                                      |
+| -------- | --------------------------------------- |
+| 機能名      | Joystick                                |
+| キーマップマクロ | `QK_JOYSTICK_`                          |
+| 説明       | ジョイスティック。                               |
+| URL      | <https://docs.qmk.fm/features/joystick> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -330,14 +329,14 @@ modifierのデコード方法は下部を参照。
           ^^^^^^ <-- data  6bit
 ```
 
-## QK_PROGRAMMABLE_BUTTON (0x7440-0x747F)
+## QK\_PROGRAMMABLE\_BUTTON (0x7440-0x747F)
 
-| 項目             | 内容                                             |
-| ---------------- | ------------------------------------------------ |
-| 機能名           | Programmable button                              |
-| キーマップマクロ | `QK_PROGRAMMABLE_BUTTON`                         |
-| 説明             | ソースコードの関数を呼び出せるみたいな感じ?      |
-| URL              | https://docs.qmk.fm/features/programmable_button |
+| 項目       | 内容                                                 |
+| -------- | -------------------------------------------------- |
+| 機能名      | Programmable button                                |
+| キーマップマクロ | `QK_PROGRAMMABLE_BUTTON`                           |
+| 説明       | ソースコードの関数を呼び出せるみたいな感じ?                             |
+| URL      | <https://docs.qmk.fm/features/programmable_button> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -345,14 +344,14 @@ modifierのデコード方法は下部を参照。
           ^^^^^^ <-- button id 6bit
 ```
 
-## QK_AUDIO (0x7480-0x74BF)
+## QK\_AUDIO (0x7480-0x74BF)
 
-| 項目             | 内容                               |
-| ---------------- | ---------------------------------- |
-| 機能名           | Audio                              |
-| キーマップマクロ | `QK_AUDIO`                         |
-| 説明             | 音が出る                           |
-| URL              | https://docs.qmk.fm/features/audio |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | Audio                                |
+| キーマップマクロ | `QK_AUDIO`                           |
+| 説明       | 音が出る                                 |
+| URL      | <https://docs.qmk.fm/features/audio> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -360,14 +359,14 @@ modifierのデコード方法は下部を参照。
           ^^^^^^ <-- data  6bit
 ```
 
-## QK_STENO (0x74CO-0x74FF)
+## QK\_STENO (0x74CO-0x74FF)
 
-| 項目             | 内容                                                               |
-| ---------------- | ------------------------------------------------------------------ |
-| 機能名           | Stenography                                                        |
-| キーマップマクロ |                                                                    |
-| 説明             | ステノタイプ。という単語を今初めて知った。速記で使われてるらしい？ |
-| URL              | https://docs.qmk.fm/features/stenography                           |
+| 項目       | 内容                                         |
+| -------- | ------------------------------------------ |
+| 機能名      | Stenography                                |
+| キーマップマクロ |                                            |
+| 説明       | ステノタイプ。という単語を今初めて知った。速記で使われてるらしい？          |
+| URL      | <https://docs.qmk.fm/features/stenography> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -375,14 +374,14 @@ modifierのデコード方法は下部を参照。
           ^^^^^^ <-- data  6bit
 ```
 
-## QK_MACRO (0x7700-0x777F)
+## QK\_MACRO (0x7700-0x777F)
 
-| 項目             | 内容                               |
-| ---------------- | ---------------------------------- |
-| 機能名           | Macros                             |
-| キーマップマクロ |                                    |
-| 説明             | マクロ。                           |
-| URL              | https://docs.qmk.fm/feature_macros |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | Macros                               |
+| キーマップマクロ |                                      |
+| 説明       | マクロ。                                 |
+| URL      | <https://docs.qmk.fm/feature_macros> |
 
 ```
 [ 8bit ][ 8bit ]
@@ -390,14 +389,14 @@ modifierのデコード方法は下部を参照。
          ^^^^^^^ <-- macro id?  7bit
 ```
 
-## QK_LIGHTING (0x7800-0x78FF)
+## QK\_LIGHTING (0x7800-0x78FF)
 
-| 項目             | 内容                                                                                         |
-| ---------------- | -------------------------------------------------------------------------------------------- |
-| 機能名           | Lighting                                                                                     |
-| キーマップマクロ |                                                                                              |
-| 説明             | ライティング制御。RGB LightingとRGB Matrixなどライティング関係のものは全てこの中にあります。 |
-| URL              | https://docs.qmk.fm/features/backlight                                                       |
+| 項目       | 内容                                                        |
+| -------- | --------------------------------------------------------- |
+| 機能名      | Lighting                                                  |
+| キーマップマクロ |                                                           |
+| 説明       | ライティング制御。RGB LightingとRGB Matrixなどライティング関係のものは全てこの中にあります。 |
+| URL      | <https://docs.qmk.fm/features/backlight>                  |
 
 ```
 [ 8bit ][ 8bit ]
@@ -405,14 +404,14 @@ modifierのデコード方法は下部を参照。
         ^^^^^^^^ <-- data  8bit
 ```
 
-## QK_QUANTUM (0x7C00-0x7DFF)
+## QK\_QUANTUM (0x7C00-0x7DFF)
 
-| 項目             | 内容                                                                         |
-| ---------------- | ---------------------------------------------------------------------------- |
-| 機能名           | N/A                                                                          |
-| キーマップマクロ | N/A                                                                          |
-| 説明             | その他特殊なキーが割り当てられています。キー一覧を折り畳んで置いておきます。 |
-| URL              |                                                                              |
+| 項目       | 内容                                     |
+| -------- | -------------------------------------- |
+| 機能名      | N/A                                    |
+| キーマップマクロ | N/A                                    |
+| 説明       | その他特殊なキーが割り当てられています。キー一覧を折り畳んで置いておきます。 |
+| URL      |                                        |
 
 :::details キー一覧
 
@@ -502,14 +501,14 @@ QK_ALT_REPEAT_KEY = 0x7C7A,
        ^^^^^^^^^ <-- data  9bit
 ```
 
-## QK_KB (0x7E00-0x7E3F)
+## QK\_KB (0x7E00-0x7E3F)
 
-| 項目             | 内容                                                          |
-| ---------------- | ------------------------------------------------------------- |
-| 機能名           | Keyboard keycode                                              |
-| キーマップマクロ | `QK_KB_`                                                      |
-| 説明             | QMKのキーボード層でカスタムキーコードを定義するための予約領域 |
-| URL              |                                                               |
+| 項目       | 内容                               |
+| -------- | -------------------------------- |
+| 機能名      | Keyboard keycode                 |
+| キーマップマクロ | `QK_KB_`                         |
+| 説明       | QMKのキーボード層でカスタムキーコードを定義するための予約領域 |
+| URL      |                                  |
 
 ```
 [ 8bit ][ 8bit ]
@@ -517,14 +516,14 @@ QK_ALT_REPEAT_KEY = 0x7C7A,
           ^^^^^^ <-- data  6bit
 ```
 
-## QK_USER (0x7E40-0x7FFF)
+## QK\_USER (0x7E40-0x7FFF)
 
-| 項目             | 内容                                                        |
-| ---------------- | ----------------------------------------------------------- |
-| 機能名           | User keycode                                                |
-| キーマップマクロ | `QK_USER_`                                                  |
-| 説明             | QMKのユーザー層でカスタムキーコードを定義するための予約領域 |
-| URL              | https://docs.qmk.fm/feature_layers                          |
+| 項目       | 内容                                   |
+| -------- | ------------------------------------ |
+| 機能名      | User keycode                         |
+| キーマップマクロ | `QK_USER_`                           |
+| 説明       | QMKのユーザー層でカスタムキーコードを定義するための予約領域      |
+| URL      | <https://docs.qmk.fm/feature_layers> |
 
 ```
 - 0x7E40-0x7E7F
@@ -549,7 +548,7 @@ Keycodeという単語が意味するものは結構曖昧ですが、今から�
 
 Keycodeは`0x00`から`0xFF`までの8ビットで表され、「普通のキー」を指します。それぞれに割り当てられている番号はHIDと大体同じですが
 
-https://docs.qmk.fm/keycodes_basic
+@[card](https://docs.qmk.fm/keycodes_basic)
 
 にあるように、HIDのキーボードレポートではサポートされていないマウスやメディアキーも入っているなどの違いがあります。
 また、`0x0000`はNO、`0x0001`はTRANSPARENTを表します。
@@ -585,4 +584,4 @@ enum mods_5bit {
 HIDとは違うデータ構造になっており、HIDでは8ビット必要だったのが5ビットに圧縮されています。
 
 
-> この記事は [https://note.nazo6.dev/blog/qmk-key-id-list](https://note.nazo6.dev/blog/qmk-key-id-list) とのクロスポストです。
+> この記事は[個人ブログ](https://nazo6.dev/blog/article/qmk-key-id-list)とクロスポストしています。

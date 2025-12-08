@@ -13,13 +13,14 @@ Volume UpやDownを送るためには通常のキーボード用レポートデ�
 
 他の言語では分かりませんが、Rustでは`usbd_hid`を用いることでメディアキー用のレポートを作成することができます。
 
-https://docs.rs/usbd-hid/latest/usbd_hid/descriptor/struct.MediaKeyboardReport.html
+@[card](https://docs.rs/usbd-hid/latest/usbd_hid/descriptor/struct.MediaKeyboardReport.html)
 
 バリアントとして使用可能なのは以下のキーになります。
 
-https://docs.rs/usbd-hid/latest/usbd_hid/descriptor/enum.MediaKey.html
+@[card](https://docs.rs/usbd-hid/latest/usbd_hid/descriptor/enum.MediaKey.html)
 
 抜粋:
+
 ```rust
 pub enum MediaKey {
     Zero = 0x00,
@@ -40,6 +41,7 @@ pub enum MediaKey {
 ```
 
 デバイスの作成は例えば`embassy_usb`では以下のようになります。
+
 ```rust
 let config = embassy_usb::class::hid::Config {
     report_descriptor: MediaKeyboardReport::desc(),
@@ -52,4 +54,5 @@ HidReaderWriter::<_, 1, 8>::new(&mut builder, &mut State::new(), config)
 
 メディアキーでは送信できるのは一つのキーのみで、さらに「押されている状態を送信する」通常のキーとは違い「送信するたびに押されたことにする」ようになっているみたいです。
 
-> この記事は [https://note.nazo6.dev/blog/usb-keyboard-media-key](https://note.nazo6.dev/blog/usb-keyboard-media-key) とのクロスポストです。
+
+> この記事は[個人ブログ](https://nazo6.dev/blog/article/usb-keyboard-media-key)とクロスポストしています。

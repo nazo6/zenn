@@ -72,6 +72,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 セッションの保存には[possession.nvim](https://github.com/jedrzejboczar/possession.nvim)を使っています。他のプラグインであったり通常の`:mksession`でもまあ同じ感じだと思います。
 
 ## 追記(2025/06)
+
 Neovim 0.12 (現時点のnightly)で`restart`コマンドが実装されました！これはNeovimのUI部分はそのまま、コア部分のみを再起動できるコマンドです(NeovimではUI部分がclient,コア部分がserverと呼ばれており、このコマンドはserverを再起動します)。これを使えばNeovimを終了することなく再起動を行うことができます。GUIクライアントについてはそれぞれで対応が必要なようですがそのうちできるようになるでしょう
 
 ただ、`restart`コマンドではセッションは復元されないので私は`possession.nvim`を用いて以下のようにセッション復元を行う`Restart`コマンドを使っています。
@@ -109,4 +110,4 @@ end, {})
 設定をいじってる時以外でもなんか調子悪いから再起動したいけどこのワークスペースを維持したいという時にも便利です。
 
 
-> この記事は [https://note.nazo6.dev/blog/neovim-restart-command](https://note.nazo6.dev/blog/neovim-restart-command) とのクロスポストです。
+> この記事は[個人ブログ](https://nazo6.dev/blog/article/neovim-restart-command)とクロスポストしています。

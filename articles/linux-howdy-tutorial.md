@@ -104,7 +104,7 @@ Wikiでは若干違う記述になっているが、それは古いものなの�
 
 ただ、自分の場合はpolkitのPAM設定ファイルが無かったが、このissue
 
-https://github.com/boltgolt/howdy/issues/623
+@[card](https://github.com/boltgolt/howdy/issues/623)
 
 を見ると、`/usr/lib/pam.d/polkit-1`をコピーしてくればいいようだ。
 
@@ -129,10 +129,9 @@ KDEのデフォルトディスプレイマネージャであるSDDMは起動直�
 
 KWalletのパスワードはユーザーパスワードと基本的に同じため、SDDMで直接パスワードが入力された場合自動でKWalletのロックを解除できる。しかし、Howdyではパスワードを入力しないためそうはいかない。これを実現するためにはHowdyにパスワードを保管しておく必要があり、セキュリティ上よろしくないため実装されていない。詳しくは↓
 
-https://github.com/boltgolt/howdy/issues/56
+@[card](https://github.com/boltgolt/howdy/issues/56)
 
 今回はKDE(KWallet)の話だが、Gnome Keyringなどでも同じ問題が起きると考えられる。
 
 
-
-> この記事は [https://note.nazo6.dev/blog/linux-howdy-tutorial](https://note.nazo6.dev/blog/linux-howdy-tutorial) とのクロスポストです。
+> この記事は[個人ブログ](https://nazo6.dev/blog/article/linux-howdy-tutorial)とクロスポストしています。

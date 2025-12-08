@@ -6,7 +6,9 @@ topics:
 emoji: 💭
 title: docker-composeでGitea + Gitea Actionsのセットアップ
 ---
+
 # 結論から
+
 こんな感じのdocker-compose.ymlで良い
 
 ```yaml:docker-compose.yaml
@@ -64,21 +66,26 @@ services:
 ```
 
 これで
+
 ```
 docker-compose up -d
 ```
+
 すればよい。
 
 ## 注意点
-- `act_runner`の`config.yaml`は[Gitea Actions(act_runner)の設定](#Gitea%20Actions(act_runner)の設定)を参照
+
+- `act_runner`の`config.yaml`は[Gitea Actions(act\_runner)の設定](#gitea-actionsact_runnerの設定)を参照
 - `{{}}`で囲まれた値は適宜変更すること。
 - 特に、`GITEA_RUNNER_REGISTRATION_TOKEN`については、Giteaの管理者画面より「新しいランナーを作成」してその値を入れること。
-  ![](/images/blog/2023/07/gitea/gitea_action.png)
-- [Gitea Actionsがいつの間にか動かなくなってた](../../../memo/2023/07/Gitea%20Actionsがいつの間にか動かなくなってた.md)
+  ![](/images/04175d5189c6.png)
+- [Gitea Actionsがいつの間にか動かなくなってた](<https://nazo6.dev/blog/article/Gitea Actionsがいつの間にか動かなくなってた>)
 
 # Giteaの設定
+
 上のコンテナを作成した際にできる`./gitea/gitea/conf/app.ini`を弄る。
 以下が弄るべきだと思われる値
+
 ```ini:app.ini
 [server]
 ROOT_URL={{giteaのurl}}
@@ -90,20 +97,25 @@ ENABLED=true # お好みで
 ENABLED=true # Actionsに必要
 ```
 
-# Gitea Actions(act_runner)の設定
-ドキュメントらしいドキュメントが見つからなかったが一応[Giteaのact_runnerのリポジトリ](https://gitea.com/gitea/act_runner)にそれらしいことが書いてある。
+# Gitea Actions(act\_runner)の設定
 
-まず、設定を生成する。act_runnerコンテナの中で
+ドキュメントらしいドキュメントが見つからなかったが一応[Giteaのact\_runnerのリポジトリ](https://gitea.com/gitea/act_runner)にそれらしいことが書いてある。
+
+まず、設定を生成する。act\_runnerコンテナの中で
+
 ```bash
 ./act_runner generate-config > config.yaml
 ```
+
 を実行。この`config.yaml`をdocker-composeに指定する。
-この設定はそんなに弄る必要は無いが、自分は[VPNを繋いだときだけDockerの中から特定のサイトにアクセスできない！](../../../memo/2023/06/VPNを繋いだときだけDockerの中から特定のサイトにアクセスできない！.md)の影響で
+この設定はそんなに弄る必要は無いが、自分は[VPNを繋いだときだけDockerの中から特定のサイトにアクセスできない！](https://nazo6.dev/blog/article/VPNを繋いだときだけDockerの中から特定のサイトにアクセスできない！)の影響で
+
 ```yaml:config.yaml
 container:
   network: "host"
 ```
+
 これだけ指定した。
 
 
-> この記事は [https://note.nazo6.dev/blog/docker-compose-gitea-setup](https://note.nazo6.dev/blog/docker-compose-gitea-setup) とのクロスポストです。
+> この記事は[個人ブログ](https://nazo6.dev/blog/article/docker-compose-gitea-setup)とクロスポストしています。

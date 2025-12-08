@@ -6,6 +6,7 @@ topics:
 emoji: 📋
 title: lemonadeでssh先のneovimとクリップボードを共有
 ---
+
 [lemonade](https://github.com/lemonade-command/lemonade)を使えばTCP通信を用いてクリップボードを共有できます。
 
 :::message
@@ -14,8 +15,10 @@ title: lemonadeでssh先のneovimとクリップボードを共有
 :::
 
 # 手順
+
 1. SSH元とSSH先にlemonadeを[ここ](https://github.com/lemonade-command/lemonade/releases)からダウンロードしてパスを通しておく。
 2. SSH先のneovimにclipboard providerを設定する
+
 ```lua
 local ssh_connection
 for w in vim.env.SSH_CONNECTION:gmatch "[^%s]+" do
@@ -36,13 +39,17 @@ vim.g.clipboard = {
   cache_enabled = 0,
 }
 ```
-   hostは`~/.config/lemonade.toml`でも設定できますが、色々なipから繋げられるように動的に設定しています。
-3. SSH元の`lemonade.toml`を設定する。
-   `lemonade.toml`の`allow`を指定して接続できるクライアントを指定します。
-   ```toml:lemonade.toml
-   allow = 'ここにipをいれる'
+
+hostは`~/.config/lemonade.toml`でも設定できますが、色々なipから繋げられるように動的に設定しています。
+3\. SSH元の`lemonade.toml`を設定する。
+`lemonade.toml`の`allow`を指定して接続できるクライアントを指定します。
+
+```toml:lemonade.toml
+allow = 'ここにipをいれる'
 ```
+
 4. SSH元で`lemonade server`を実行する
 5. これでssh先のneovimとクリップボードが共有されてるはずです。
 
-> この記事は [https://note.nazo6.dev/blog/lemonade-neovim-clipboard](https://note.nazo6.dev/blog/lemonade-neovim-clipboard) とのクロスポストです。
+
+> この記事は[個人ブログ](https://nazo6.dev/blog/article/lemonade-neovim-clipboard)とクロスポストしています。
