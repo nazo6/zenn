@@ -8,7 +8,7 @@ blog_crosspost: false
 title: 「Rustが嫌いです。」の感想
 ---
 
-@[card](https://zenn.dev/miguel/articles/f052de93fc9980)
+<https://zenn.dev/miguel/articles/f052de93fc9980>
 
 この記事を読んで1Rustユーザーとして思ったことを書いた。
 
