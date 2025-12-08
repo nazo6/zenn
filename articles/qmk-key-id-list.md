@@ -8,7 +8,7 @@ emoji: ⌨️
 title: QMKキーIDとアクションのすべて
 ---
 
-<https://github.com/qmk/qmk_firmware/blob/master/quantum/keycodes.h>
+@[card](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycodes.h)
 
 にあるQMKのキーコードのアクションごとの範囲をまとめました。ほぼ全てのQMKのアクションを網羅しているはずです。
 
