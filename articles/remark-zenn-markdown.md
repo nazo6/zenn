@@ -3,13 +3,24 @@ published: true
 type: tech
 topics:
   - typescript
+  - markdown
 emoji: 📝
 title: RemarkでZenn形式のmarkdownを再現する
 ---
 
 # 概要
 
-この記事はブログとZennに同時投稿しているのですが、その際に[Zen独自のmarkdown記法](https://zenn.dev/zenn/articles/markdown-guide#zenn-独自の記法)を使いたいときがあります。ブログ側ではmarkdownの表示に`remark`を使っているので`remark`でそれらを表示したいという趣旨です。
+この記事はブログとZennに同時投稿しているのですが、その際に[Zenn独自のmarkdown記法](https://zenn.dev/zenn/articles/markdown-guide#zenn-独自の記法)を使いたいときがあります。ブログ側ではmarkdownの表示に`remark`を使っているので`remark`でそれらを表示したいという趣旨です。
+
+# 追記
+
+この記事の内容をremarkプラグイン化したものを公開しました。JSRかnpmでインストールできるのでよければお使いください。
+
+このプラグインではremark-directiveは使わずに自力で実装しています。
+
+@[card](https://jsr.io/@nazo6/remark-zenn-directive)
+
+@[card](https://www.npmjs.com/package/@nazo6/remark-zenn-directive)
 
 # Directive
 
@@ -30,7 +41,7 @@ title: RemarkでZenn形式のmarkdownを再現する
 が表示されるというものです。これはどうやら一般にdirectiveと呼ばれる記法のようです。
 これはなんかメジャーっぽいしお目当てのプラグインで既にあるのではと思い探すとありました。[これ](https://github.com/remarkjs/remark-directive)です。
 
-これでdirective記法はクリア…かと思いきや実はこのプラグインではZennの記法を再現することはできません。これはZennでは
+これでdirective記法はクリア…かと思いきや実はこのプラグインではZennの記法を再現することはできません。というのも、Zennでは
 
 ```
 :::message alert
@@ -41,7 +52,7 @@ title: RemarkでZenn形式のmarkdownを再現する
 :::
 ```
 
-のようにディレクティブ名の後にタイトルなどを記述するのですがこれはremark-directiveではサポートされていないからです。
+のようにディレクティブ名の後にタイトルなどを記述するのですが、これはremark-directiveではサポートされていないからです。
 
 なのでしょうがないので`remark-directive`にパッチを当てることにしました。パッチの内容は以下です。
 

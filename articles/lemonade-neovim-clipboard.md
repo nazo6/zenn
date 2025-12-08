@@ -10,8 +10,10 @@ title: lemonadeでssh先のneovimとクリップボードを共有
 [lemonade](https://github.com/lemonade-command/lemonade)を使えばTCP通信を用いてクリップボードを共有できます。
 
 :::message
+
 デフォルトでlemonadeは通信を暗号化しないので注意。
 セキュアな通信がしたい場合[SSHポートフォワーディングを使うように案内されています](https://github.com/lemonade-command/lemonade#secure-tcp-connection)。
+
 :::
 
 # 手順
