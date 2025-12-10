@@ -8,9 +8,12 @@ emoji: 🖼
 title: SvelteKitでOG画像を生成する
 ---
 
+> この記事は[Svelte Advent Calendar 2025](https://qiita.com/advent-calendar/2025/svelte) 11日目の記事です。(記事を書いてからAdvent Calendarがあることに気づいた…)
+
 - SSG対応
 - Svelteコンポーネントを用いる
-  ようなOG画像生成方法についてまとめました。
+
+ようなOG画像生成方法についてまとめました。
 
 # 1. Svelteコンポーネントを画像化
 
