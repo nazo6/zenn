@@ -123,7 +123,7 @@ export const GET: RequestHandler = async ({ params }) => {
 
 # 3. `og:image`メタタグを指定
 
-SvelteKitのは生成されたページの`og:image`メタタグをクロールして、それが相対パスであればサーバー関数もprerenderしてくれるため、各ページに先程のエンドポイントへの具体的なパスを指定しておけば自動で静的なOG画像を生成することができます。
+SvelteKitは生成されたページの`og:image`メタタグをクロールして、それが相対パスであればサーバー関数もprerenderしてくれるため、各ページに先程のエンドポイントへの具体的なパスを指定しておけば自動で静的なOG画像を生成することができます。
 
 例えば`/article/[slug]`のようなルートがある場合、`/article/[slug]/+page.svelte`に
 
