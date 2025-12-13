@@ -1,11 +1,11 @@
 mod homepage;
 mod observe;
-mod statefull;
+mod stateful;
 mod stateless;
 
 fn main() {
     // observe::start();
     // stateless::start();
-    statefull::start();
+    stateful::start();
     // homepage::start();
 }

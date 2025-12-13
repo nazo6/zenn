@@ -1,35 +1,35 @@
 use gpui::*;
 
 struct Root {
-    statefull: Entity<Statefull>,
+    stateful: Entity<Stateful>,
 }
 impl Root {
     fn new(cx: &mut App) -> Self {
         Self {
-            statefull: cx.new(|_| Statefull { count: 0 }),
+            stateful: cx.new(|_| Stateful { count: 0 }),
         }
     }
 }
 impl Render for Root {
     fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
-        div().child(self.statefull.clone())
+        div().child(self.stateful.clone())
     }
 }
 
-struct Statefull {
+struct Stateful {
     count: u32,
 }
-impl Render for Statefull {
+impl Render for Stateful {
     fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
-        div().child(format!("Statefull: {}", self.count)).child(
-            div().child("Button").on_mouse_down(
+        div()
+            .child(format!("Stateful: {}", self.count))
+            .child(div().child("Button").on_mouse_down(
                 MouseButton::Left,
                 cx.listener(|this, _evt, _window, cx| {
                     this.count += 1;
                     cx.notify();
                 }),
-            ),
-        )
+            ))
     }
 }
 
