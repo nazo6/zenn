@@ -5,7 +5,7 @@ topics:
   - Rust
   - gpui
 emoji: 🖼
-title: RustでデスクトップGUI - gpui入門(Part1 gpuiの仕組み・状態管理の基礎編)
+title: RustでデスクトップGUI - gpui入門 Part1 (gpuiの仕組み・状態管理の基礎編)
 ---
 
 > この記事は[Rust Advent Calendar 2025](https://qiita.com/advent-calendar/2025/rust) シリーズ2 14日目の記事です。
