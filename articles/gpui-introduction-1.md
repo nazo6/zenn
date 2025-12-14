@@ -10,7 +10,7 @@ title: RustでデスクトップGUI - gpui入門 Part1 (gpuiの仕組み・状�
 
 > この記事は[Rust Advent Calendar 2025](https://qiita.com/advent-calendar/2025/rust) シリーズ2 14日目の記事です。
 
-[gpuiに関するスクラップ](https://zenn.dev/nazo6/scraps/4452b3e2b175eb)が最近よく見られていたのと、自分自身もgpuiでアプリを作ってみたかったので、gpuiについての記事を書いてみました。
+[gpuiに関するスクラップ](https://zenn.dev/nazo6/scraps/4452b3e2b175eb)が最近よく見られていたのと、自分自身もgpuiでアプリを作ろうと考えているので、勉強も兼ねてgpuiについての記事を書いてみました。
 
 # gpuiとは
 
@@ -66,7 +66,7 @@ gpuiはZedエディタに合わせて開発が進んでおり、今後もAPIに�
 
 ## コンポーネントシステム
 
-最も高レイヤから見たgpuiは、以下のようなコンポーネントベースのUIフレームワークです。以下はgpuiの公式サイトに書いてあるサンプルコードです。
+最も高レイヤから見たgpuiは、コンポーネントベースのUIフレームワークです。例として、gpuiの公式サイトに書いてあるサンプルコードを下に示します。
 
 ```rust
 use gpui::{
@@ -135,31 +135,36 @@ fn main() {
 
 ## `Element`トレイト
 
-このような`Render`/`RenderOnce`を実装したコンポーネントから`Element`トレイトを実装した型を返すことができます。これは実際の描画を担当する低レベルなものです。`Element`トレイトの実装では、自身の大きさや実際に描画する内容を決める必要があり、内部では階層構造のように保持されています。
+先程のソースを見ると、コンポーネントの`render`メソッドから`impl IntoElement`というものが返されていることがわかります。これは最終的に`impl Element`となります。
+
+この`Element`が実際の描画を担当する低レベルなトレイトです。。具体的には`Element`トレイトの実装では、自身の大きさや実際に描画する内容を決める必要があり、内部ではElementが階層構造のように保持されることで、DOMのような構造になっています。
 
 先程出てきた`div`要素は`Element`(および`IntoElement`)を実装している物の代表例で、以下のコードを見るとかなり複雑そうなことをしているのがわかります。
 
 @[card](https://docs.rs/gpui/latest/src/gpui/elements/div.rs.html)
 
-Renderトレイトの`render`メソッドが`IntoElement`を返すことからもわかる通り、ElementはRenderから生成されます。
-
 ## Taffy
 
 そしてElementの描画を支えているのが、[taffy](https://github.com/DioxusLabs/taffy)というライブラリです。Taffyはいわゆるレイアウトエンジンというもので、先程のElement達を実際に画面に描画すべき構造に変換してくれます。
 
-Taffyは他のRustプロジェクトでも使用されています。例えば[Blitz](https://github.com/DioxusLabs/blitz)というDioxusをベースとした別のGUIライブラリや[Servo](https://github.com/servo/servo)という、Rustで新しいブラウザエンジンを作るというプロジェクトなどです。
+Taffyは他のRustプロジェクトでも使用されています。例えば
+
+- [Blitz](https://github.com/DioxusLabs/blitz): Dioxusをベースとした別のGUIライブラリ
+- [Servo](https://github.com/servo/servo): Rustで新しいブラウザエンジンを作るプロジェクト
+
+などで使われています。
 
 このTaffyですが、flexboxやCSS gridといったブラウザのCSSで実現できるレイアウトを処理することができます。(どちらが先なのかはよくわかりませんが、Servoで使われているのはそのような事情もありそうです。)
 先程のサンプルコードに`justify_center`などCSSではお馴染のワードが出てきたのは、Taffyの力でgpuiではFlexboxがサポートされているからということです。
 
 ## GPUレンダラ
 
-ここまでで画面に描画する内容を決定することができたので、これを実際に描画しなければいけません。そこで出てくるのがGPUレンダラです。RustではクロスプラットフォームのGUIレンダリングを実装したい場合は[wgpu](https://github.com/gfx-rs/wgpu)などを使うことが一般的だと思いますが、gpuiではそのような物は使っています。
+ここまでで画面に描画する内容を決定することができたので、これを実際に描画しなければいけません。そこで出てくるのがGPUレンダラです。RustではクロスプラットフォームのGUIレンダリングを実装したい場合は[wgpu](https://github.com/gfx-rs/wgpu)などを使うことが一般的だと思いますが、gpuiではそのようなライブラリは使っていません。代わりに
 
 - Mac: Metalまたは[blade](https://github.com/kvark/blade)
 - Linux: bladeを介したVulkan
 - Windows: Direct3D
-  のAPIを叩くことでそれぞれ頑張って実装しているようです。すごい…
+  のAPIを直接叩くことでそれぞれ頑張って実装しているようです。すごい…
 
 @[card](https://zed.dev/blog/zed-decoded-linux-when)
 
@@ -171,11 +176,11 @@ Taffyは他のRustプロジェクトでも使用されています。例えば[B
 
 # gpuiの状態管理
 
-前項で飛ばした重要な項目に、状態管理があります。ここからは、コンポーネントを組み合わせる方法と状態管理について説明します。
+前項で飛ばした重要な項目に、状態管理があります。ここからは、コンポーネントを組み合わせる方法と状態管理について見ていきます。
 
 ## `RenderOnce`と`IntoElement`
 
-まずは`RenderOnce`トレイトですが、これは状態を持たないコンポーネントに実装します。このトレイトの定義は
+まずは`RenderOnce`トレイトですが、これは**状態を持たないコンポーネント**に実装するトレイトです。その定義は
 
 ```rust
 pub trait RenderOnce: 'static {
@@ -184,7 +189,7 @@ pub trait RenderOnce: 'static {
 }
 ```
 
-です。注目すべきは`render`で`self`が渡ってくるという点です。これにより「一度だけレンダリングされる」ということが表現されています。つまり`RenderOnce`はステートレスなコンポーネントに実装されます。
+です。`render`のみを持つトレイトですが、ここで注目すべきは`render`で`self`が渡ってくるという点です。これにより「一度だけレンダリングされる」ということが表現されています。
 
 このトレイトの特徴は、`#[derive(IntoElement)]`により`IntoElement`トレイトを実装できることです。
 `div().child`等のメソッドは`IntoElement`を引数として受け取るため、`RenderOnce`と`IntoElement`を実装する以下のような`Stateless` structはdivの子要素として直接渡すことができます。
@@ -224,7 +229,7 @@ pub fn main() {
 
 ## `Render`と`Entity`
 
-状態を持たないコンポーネントについてはわかりましたね。では、状態を持つコンポーネントはどうすればいいでしょうか？実は既にコード中に出ていますが、そのようなコンポーネントには`Render`トレイトを実装します。
+状態を持たないコンポーネントについてはわかりましたね。では、**状態を持つコンポーネント**はどうすればいいでしょうか？実は既にコード中に出ていますが、そのようなコンポーネントは`Render`トレイトを実装することで実現します。
 以前のコードで`Render`が既に出ていたのは、単にルートコンポーネントが`Render`を実装していないといけないからで、深い意味はありません。
 
 では、`Render`トレイトを実装した以下のようなコンポーネントを見てみましょう。
@@ -248,7 +253,12 @@ impl Render for Stateful {
 }
 ```
 
-`render`関数の中身は後ほど説明しますが、これはカウンターとインクリメントボタンを持つコンポーネントです。`count`というステートを持っています。`RenderOnce`では`self`が渡ってきたのに対して`Render`では`&mut self`が渡ってきており、型でも何回もレンダリングされそうなことがわかります。
+`RenderOnce`と似てどちらも`render`メソッドを持っていますが、`RenderOnce`では`self`だったのに対して`Render`では`&mut self`が渡されています。。確かにこれは何度もレンダリングされることを表現していそうですね。
+
+また、よく見ると`cx`の型が`RenderOnce`では`&mut App`だったのに対して、`&mut Context<Self>`であることに気がつきます。これがステート管理の上で重要な要素になっっています。詳細については[状態の更新](#状態の更新)で後ほど説明します。
+
+`render`関数の中身も後ほど説明しますが、これはカウンターとインクリメントボタンを持つコンポーネントです。`count`というステートを持っています。とりあえず現段階では気にしなくていいです。
+
 では、このコンポーネントはどうやって要素ツリーの中に入れればいいのでしょうか？`derive(IntoElement)`は`RenderOnce`専用なので、
 
 ```rust
@@ -257,7 +267,7 @@ fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoEl
 }
 ```
 
-というコードは書けません。
+のようなコードは書けません。
 
 ですが、[`IntoElement`のdoc](https://docs.rs/gpui/latest/gpui/trait.IntoElement.html)を見ると
 
@@ -265,11 +275,11 @@ fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoEl
 impl<V: 'static + Render> IntoElement for Entity<V>
 ```
 
-という実装があることがわかります。なので`Entity<Stateful>`というものを作ればレンダリングができそうです。
+という実装があることがわかります。なので`Entity<Stateful>`というものを作ることができればレンダリングができそうですね！
 
 ### `Entity`
 
-`Entity`が何なのかという話の前にまずは`Render`なコンポーネントをどう使うかを示します。
+`Entity`が何なのかという話の前にまずは実際に`Entity<Stateful>`を作ってレンダリングするコードをお見せします。
 
 ```rust
 use gpui::*;
@@ -291,12 +301,14 @@ impl Render for Root {
 }
 ```
 
-新たにできた`Root::new`で、`cx.new()`というものを呼んでそれを保存しています。`render`時にはそこで作ったものを`clone`して渡していることがわかります。
+新しく作成した`Root::new`で、`cx.new(|_| Stateful { count: 0 })`というコードを呼んでそれを保存しています。`render`時にはそこで作ったものを`clone`して渡していることがわかります。
 
-これを実行すると、下のButtonと書かれた部分を押すことで`Stateful: 0`の数字が増え、動作していることがわかります。
+実際にこれを実行すると、下のButtonと書かれた部分を押すことで`Stateful: 0`の数字が増え、動作していることがわかります。
 ![](/images/a0544589b865.png)
 
-`cx`は`&mut App`型ですが、これはgpuiアプリの開始時にgpuiから渡されるものです。そしてこの`cx`のメソッドである`cx.new()`こそが`Entity<Stateful>`を作るための処理です。この`Entity<V>`は**View**と呼ばれています。
+さて、では`cx.new()`とは何なのでしょうか。
+
+ここで`cx`は`&mut App`型ですが、これはgpuiアプリの開始時にgpuiから渡されるものです。そしてそのメソッドである **`cx.new()`は`Entity<Stateful>`を作るための処理**です。この`Entity<V>`はgpui用語で**View**と呼ばれます。
 これは`IntoElement`を実装しているため、`div().child()`に渡すことができます。
 
 このコードより、ステートを持つコンポーネントを子としたい場合には、そのステートを親が保存しておく必要があることがわかります。
@@ -312,7 +324,9 @@ impl Render for Root {
 
 要するに、`Entity`は「`Rc`といったスマートポインタに似ているが、それを`App`構造体でのステート中央集権型のアーキテクチャに適応したもの」です。
 
-この記事では、Rustの所有権システムと状態管理をうまく組み合わせる方法を探した結果、`App`というルート構造体に全てのステートを保存するという手法を採用したということが書いてあります。これは今まで出てきた`App`構造体のことで、`cx`の型です。執筆時点での実際の`App`構造体のコードがこちらです。
+この記事では、Rustの所有権システムと状態管理をうまく組み合わせる方法を探した結果、`App`というルート構造体に全てのステートを保存するという中央集権型の手法を採用したということが書いてあります。これは先程も出てきた`cx`の型である`App`と同じものを指しています
+
+では実際に`App`がどのような構造なのかちょっと見てみましょう。執筆時点での`App`構造体のコードがこちらです。
 
 ```rust
 pub struct App {
@@ -328,9 +342,18 @@ pub(crate) struct EntityMap {
 }
 ```
 
-`entities: SecondaryMap<EntityId, Box<dyn Any>>`に、全てのステートが保存されます。ここのステートの一つにアクセスするための鍵が`Entity`であるというわけです。
-つまり、`cx.new() (= AppContext::new())`は、この`entities`に構造体を追加し、それへのハンドルである`Entity`を取得するメソッドだったという訳です。
-また、ここから`render`時に`self.stateful.clone()`をしているのはあくまで`Entity`のクローンであり、安価なコピーであることがわかります。
+確かに`entities: SecondaryMap<EntityId, Box<dyn Any>>`に全てのステートが保存されているようです。
+
+ここで、`Entity`には
+
+```rust
+pub fn entity_id(&self) -> EntityId
+```
+
+という実装があります。この`EntityId`というのはまさに`entities`マップのキーです。このようにして、`cx`から`Entity`を介して実際の状態を読み出すことができるのです。
+
+つまり、`cx.new() (= AppContext::new())`は、この`entities`にステートを追加し、それへのハンドルである`Entity`を取得するメソッドだったという訳です。
+また、先程のサンプルコードでは`render`時に`self.stateful.clone()`を実行していましたが、これははあくまで`Entity`のクローンであり安価な操作であることがわかります。
 
 ### 状態の更新
 
@@ -356,7 +379,7 @@ impl Render for Stateful {
 ```
 
 gpui単体では「ボタン」というコンポーネントは用意されていないため、単にdivに描画されたテキストの左クリックを検知とすることでボタンにしています。
-そのボタンのハンドラでは`cx.listener`をいうものが使われています。ここで注意するのは、ここでの`cx`は`&mut App`ではなく`&mut Context<Self>`という型であるということです。とは言っても難しいことはありません。[`Context<T>`](https://docs.rs/gpui/latest/gpui/struct.Context.html)の定義は以下の通りです。
+そのクリックハンドラでは`cx.listener`をいうものが使われています。ここで注意するのは、ここでの`cx`は`&mut App`ではなく`&mut Context<Self>`という型であるということです。とは言っても難しいことはありません。[`Context<T>`](https://docs.rs/gpui/latest/gpui/struct.Context.html)の定義は以下の通りです。
 
 ```rust
 pub struct Context<'a, T> {
@@ -365,9 +388,9 @@ pub struct Context<'a, T> {
 }
 ```
 
-この定義から分かるのは、`Context<T>`は`App`に`T`のステートの`Entity`を加えたものであるということです。つまり、`Context<T>`は、`T`のステートに特化した`App`であると言えます。
+この定義から分かるのは、`Context<T>`は`App`に`T`の`Entity`を加えたものであるということです。つまり、`Context<T>`は、`T`のステートに特化した`App`であると言えます。
 
-今回は`cx: &mut Context<Self>`より、`cx`は`Context<Stateful>`という型となります。つまりこの`cx`では`Stateful`の値を操作するための操作ができるのです。その一つが`cx.listener`です。
+`render`メソッドのシグネチャ`cx: &mut Context<Self>`より、`cx`は`&mut Context<Stateful>`という型となります。つまりこの`cx`では`Entity<Stateful>`というステートに対する操作ができるのです。その方法の一つが`cx.listener`で、そのシグネチャは
 
 ```rust
 pub fn listener<E: ?Sized>(
@@ -376,12 +399,16 @@ pub fn listener<E: ?Sized>(
 ) -> impl Fn(&E, &mut Window, &mut App) + 'static
 ```
 
-というシグネチャを持っています。これはイベントコールバックの中で`this`として`&mut T`にアクセスできるようにするメソッドです。今回はインクリメントするボタンなので、`this.count += 1`としています。
-また、カウントを増やした後に`cx.notify()`を実行しています。これは、gpuiは変更を自動追跡するわけではないからです。変更を加えた場合は`cx.notify()`を実行することでそのEntityが更新されます。
+です。これは**イベントコールバックの中で`this`として`&mut T`にアクセスできるようにするメソッド**です。
+
+ちなみに、コールバックの中で`self`を直接書き換えるとライフタイムエラーが出ることがわかります。gpuiはこのような`cx`のメソッドを多用することで、長いライフタイムを持つ`App`からステートを取得することでライフタイムエラーを回避していることが特徴です。
+
+ではコールバックの中身を見てみましょう。今回はインクリメントするボタンなので、`this.count += 1`としています。
+また、カウントを増やした後に`cx.notify()`を実行しています。これは、**gpuiは変更を自動追跡するわけではない**からです。変更を加えた場合は`cx.notify()`を実行することで「`Entity`が更新された」ことをgpuiに伝えます。これにより`Stateful`が再レンダリングされます。
 
 ### Observe
 
-状態管理の最後として`observe`について紹介します。`observe`は他のエンティティの状態を監視するための仕組みです。
+状態管理の最後として`observe`について紹介します。これはは他の`Entity`の状態を監視するために用いられます。
 
 Observeを用いる例として以下のコードを示します。
 
