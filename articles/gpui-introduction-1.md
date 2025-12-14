@@ -137,7 +137,7 @@ fn main() {
 
 先程のソースを見ると、コンポーネントの`render`メソッドから`impl IntoElement`というものが返されていることがわかります。これは最終的に`impl Element`となります。
 
-この`Element`が実際の描画を担当する低レベルなトレイトです。。具体的には`Element`トレイトの実装では、自身の大きさや実際に描画する内容を決める必要があり、内部ではElementが階層構造のように保持されることで、DOMのような構造になっています。
+この`Element`が実際の描画を担当する低レベルなトレイトです。具体的には`Element`トレイトの実装では、自身の大きさや実際に描画する内容を決める必要があり、内部ではElementが階層構造のように保持されることで、DOMのような構造になっています。
 
 先程出てきた`div`要素は`Element`(および`IntoElement`)を実装している物の代表例で、以下のコードを見るとかなり複雑そうなことをしているのがわかります。
 
@@ -477,6 +477,12 @@ impl Render for CounterDisplay {
 
 などの機能があるのですが、これらを紹介しきることはできない(というか自分もあまり理解していない)ので、このあたりにしておきます。
 
+また、今回使用したコードは
+
+@[card](https://github.com/nazo6/zenn/tree/main/examples/gpui-introduction-1)
+
+にあります。
+
 # さいごに
 
 今回はgpuiの動作の仕組みというところに焦点を当てました。正直ドキュメントが少なくて厳しかったです。間違っている箇所もあるかと思うので何かあればご指摘頂けると幸いです。
@@ -485,6 +491,20 @@ gpuiは他のRustフレームワークと比べてもZedという実戦がある
 
 本当は[gpui-component](https://github.com/longbridge/gpui-component)とかを使ってカッコイイアプリを作るような記事を書こうと思っていたのですが、ステート管理などについて調べていると結構深堀りしないといけないような箇所が出てきてこのような記事になりました。
 元気があればいつか実践的なアプリを作るPart 2の記事を書こうと思います…
+
+# 参考記事・ドキュメント
+
+@[card](https://zed.dev/blog/zed-decoded-linux-when)
+
+@[card](https://zed.dev/blog/gpui-ownership)
+
+@[card](https://docs.rs/gpui/latest/gpui/_ownership_and_data_flow/index.html)
+
+@[card](https://github.com/zed-industries/zed/blob/0283bfb04949295086b5ce6c892defa9c3ecc008/crates/gpui/README.md)
+
+@[card](https://github.com/zed-industries/zed/blob/0283bfb04949295086b5ce6c892defa9c3ecc008/crates/gpui/docs/contexts.md)
+
+@[card](https://github.com/zed-industries/zed/blob/56daba28d40301ee4c05546fadb691d070b7b2b6/docs/src/development/glossary.md)
 
 
 > この記事は[個人ブログ](https://nazo6.dev/blog/article/gpui-introduction-1)とクロスポストしています。
