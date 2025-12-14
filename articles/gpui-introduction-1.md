@@ -164,7 +164,8 @@ Taffyは他のRustプロジェクトでも使用されています。例えば
 - Mac: Metalまたは[blade](https://github.com/kvark/blade)
 - Linux: bladeを介したVulkan
 - Windows: Direct3D
-  のAPIを直接叩くことでそれぞれ頑張って実装しているようです。すごい…
+
+のAPIを直接叩くことでそれぞれ頑張って実装しているようです。すごい…
 
 @[card](https://zed.dev/blog/zed-decoded-linux-when)
 
@@ -189,10 +190,10 @@ pub trait RenderOnce: 'static {
 }
 ```
 
-です。`render`のみを持つトレイトですが、ここで注目すべきは`render`で`self`が渡ってくるという点です。これにより「一度だけレンダリングされる」ということが表現されています。
+で、`render`という一つのメソッドのみを持っていることがわかります。ここで注目したいのは`render`で`self`が渡ってくるという点です。これにより「一度だけレンダリングされる」ということが表現されています。
 
-このトレイトの特徴は、`#[derive(IntoElement)]`により`IntoElement`トレイトを実装できることです。
-`div().child`等のメソッドは`IntoElement`を引数として受け取るため、`RenderOnce`と`IntoElement`を実装する以下のような`Stateless` structはdivの子要素として直接渡すことができます。
+この`RenderOnce`トレイトの特徴は、`#[derive(IntoElement)]`により`IntoElement`トレイトを実装できることです。
+`div().child()`等のメソッドは`IntoElement`を引数として受け取るため、`RenderOnce`と`IntoElement`を実装する以下のような`Stateless` structはdivの子要素として直接渡すことができます。
 
 ```rust
 use gpui::*;
@@ -230,7 +231,7 @@ pub fn main() {
 ## `Render`と`Entity`
 
 状態を持たないコンポーネントについてはわかりましたね。では、**状態を持つコンポーネント**はどうすればいいでしょうか？実は既にコード中に出ていますが、そのようなコンポーネントは`Render`トレイトを実装することで実現します。
-以前のコードで`Render`が既に出ていたのは、単にルートコンポーネントが`Render`を実装していないといけないからで、深い意味はありません。
+以前のコードで`Render`が既に出ていたのは、単にルートコンポーネントが`Render`を実装していないといけないからです。
 
 では、`Render`トレイトを実装した以下のようなコンポーネントを見てみましょう。
 
@@ -253,11 +254,11 @@ impl Render for Stateful {
 }
 ```
 
-`RenderOnce`と似てどちらも`render`メソッドを持っていますが、`RenderOnce`では`self`だったのに対して`Render`では`&mut self`が渡されています。。確かにこれは何度もレンダリングされることを表現していそうですね。
+`RenderOnce`と似ており、`render`というメソッド一つのみを実装するトレイトになっていますが、`RenderOnce`では`self`だったのに対して`Render`では`&mut self`が渡されています。確かにこれは何度もレンダリングされることを表現していそうですね。
 
 また、よく見ると`cx`の型が`RenderOnce`では`&mut App`だったのに対して、`&mut Context<Self>`であることに気がつきます。これがステート管理の上で重要な要素になっっています。詳細については[状態の更新](#状態の更新)で後ほど説明します。
 
-`render`関数の中身も後ほど説明しますが、これはカウンターとインクリメントボタンを持つコンポーネントです。`count`というステートを持っています。とりあえず現段階では気にしなくていいです。
+`render`関数の中身については後ほど詳しく説明しますが、`count`というステートを表示するテキストと、それをインクリメントするボタンがあるということを分かっていただければ大丈夫です。
 
 では、このコンポーネントはどうやって要素ツリーの中に入れればいいのでしょうか？`derive(IntoElement)`は`RenderOnce`専用なので、
 
@@ -269,7 +270,7 @@ fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoEl
 
 のようなコードは書けません。
 
-ですが、[`IntoElement`のdoc](https://docs.rs/gpui/latest/gpui/trait.IntoElement.html)を見ると
+ここで、[`IntoElement`のdoc](https://docs.rs/gpui/latest/gpui/trait.IntoElement.html)を見てみると
 
 ```rust
 impl<V: 'static + Render> IntoElement for Entity<V>
@@ -301,17 +302,32 @@ impl Render for Root {
 }
 ```
 
-新しく作成した`Root::new`で、`cx.new(|_| Stateful { count: 0 })`というコードを呼んでそれを保存しています。`render`時にはそこで作ったものを`clone`して渡していることがわかります。
+新しく作成した`Root::new`で、`cx.new(|_| Stateful { count: 0 })`というものを呼んだ結果を使って自身を初期化しています。`render`時にはそこで作ったものを`clone`して渡していることがわかります。
 
 実際にこれを実行すると、下のButtonと書かれた部分を押すことで`Stateful: 0`の数字が増え、動作していることがわかります。
 ![](/images/a0544589b865.png)
 
-さて、では`cx.new()`とは何なのでしょうか。
+では、`cx.new()`とは何なのでしょうか。
 
-ここで`cx`は`&mut App`型ですが、これはgpuiアプリの開始時にgpuiから渡されるものです。そしてそのメソッドである **`cx.new()`は`Entity<Stateful>`を作るための処理**です。この`Entity<V>`はgpui用語で**View**と呼ばれます。
-これは`IntoElement`を実装しているため、`div().child()`に渡すことができます。
+ここで`cx`は`&mut App`型ですが、これはgpuiアプリの開始時にgpuiから渡される値です。以下のコードでgpuiの開始時に渡されていることがわかります。
 
-このコードより、ステートを持つコンポーネントを子としたい場合には、そのステートを親が保存しておく必要があることがわかります。
+```rust
+pub fn main() {
+    let app = Application::new();
+    app.run(move |cx| {
+        cx.spawn(async move |cx| {
+            cx.open_window(WindowOptions::default(), |window, cx| cx.new(|cx| Root {}))?;
+            Ok::<_, anyhow::Error>(())
+        })
+        .detach();
+    });
+}
+```
+
+そしてそのメソッドである **`cx.new()`は`Stateful`から`Entity<Stateful>`を作るための処理**です。このようにして作成された`Entity<V: Render>`はgpui用語で**View**と呼ばれます。
+先程示した通りViewは`IntoElement`を実装しているため、`div().child()`に渡すことができます。
+
+このコードより、ステートを持つコンポーネントを子としたい場合には、そのステート(のEntity)を親が保存しておく必要があることがわかります。
 
 :::message
 ここまで、「コンポーネント」という用語をカジュアルに使ってきましたが、この用語はあまり適切ではないと感じています。「RenderOnceを実装したstruct」は確かにコンポーネントっぽいですが、「Renderを実装した構造体」はコンポーネントなのでしょうか？それはステートではないのでしょうか？
@@ -322,7 +338,7 @@ impl Render for Root {
 
 @[card](https://zed.dev/blog/gpui-ownership)
 
-要するに、`Entity`は「`Rc`といったスマートポインタに似ているが、それを`App`構造体でのステート中央集権型のアーキテクチャに適応したもの」です。
+要するに、`Entity`は「gpui版の`Rc`などに似たスマートポインタのようなもの」です。
 
 この記事では、Rustの所有権システムと状態管理をうまく組み合わせる方法を探した結果、`App`というルート構造体に全てのステートを保存するという中央集権型の手法を採用したということが書いてあります。これは先程も出てきた`cx`の型である`App`と同じものを指しています
 
@@ -344,16 +360,17 @@ pub(crate) struct EntityMap {
 
 確かに`entities: SecondaryMap<EntityId, Box<dyn Any>>`に全てのステートが保存されているようです。
 
-ここで、`Entity`には
+ところで、`Entity`には
 
 ```rust
 pub fn entity_id(&self) -> EntityId
 ```
 
-という実装があります。この`EntityId`というのはまさに`entities`マップのキーです。このようにして、`cx`から`Entity`を介して実際の状態を読み出すことができるのです。
+という実装がありますが、この`EntityId`というのはまさに`entities`マップのキーです。つまり、`App`への参照である`cx`から`Entity`を介して実際の状態を読み出すことができるのです。
 
-つまり、`cx.new() (= AppContext::new())`は、この`entities`にステートを追加し、それへのハンドルである`Entity`を取得するメソッドだったという訳です。
-また、先程のサンプルコードでは`render`時に`self.stateful.clone()`を実行していましたが、これははあくまで`Entity`のクローンであり安価な操作であることがわかります。
+`cx`があれば逆に書き込むこともできます。それが`cx.new()`であり、これは`App`内の`entities`にステートを追加し、それへのハンドル(キー)である`Entity`を取得するメソッドになっているのです。
+
+ちなみに、先程のサンプルコードでは`render`時に`self.stateful.clone()`を実行していましたが、これははあくまで`Entity`のクローンであり安価な操作であることがわかります。
 
 ### 状態の更新
 
@@ -390,7 +407,7 @@ pub struct Context<'a, T> {
 
 この定義から分かるのは、`Context<T>`は`App`に`T`の`Entity`を加えたものであるということです。つまり、`Context<T>`は、`T`のステートに特化した`App`であると言えます。
 
-`render`メソッドのシグネチャ`cx: &mut Context<Self>`より、`cx`は`&mut Context<Stateful>`という型となります。つまりこの`cx`では`Entity<Stateful>`というステートに対する操作ができるのです。その方法の一つが`cx.listener`で、そのシグネチャは
+`render`メソッドのシグネチャ`cx: &mut Context<Self>`より、`cx`は`&mut Context<Stateful>`という型となります。つまりこの`cx`では **`Entity<Stateful>`というステートに対する操作ができる**のです。その方法の一つが`cx.listener`で、そのシグネチャは
 
 ```rust
 pub fn listener<E: ?Sized>(
@@ -399,7 +416,7 @@ pub fn listener<E: ?Sized>(
 ) -> impl Fn(&E, &mut Window, &mut App) + 'static
 ```
 
-です。これは**イベントコールバックの中で`this`として`&mut T`にアクセスできるようにするメソッド**です。
+です。これは**イベントコールバックの中でエンティティの中身`&mut T`にアクセスできるようにするメソッド**です。
 
 ちなみに、コールバックの中で`self`を直接書き換えるとライフタイムエラーが出ることがわかります。gpuiはこのような`cx`のメソッドを多用することで、長いライフタイムを持つ`App`からステートを取得することでライフタイムエラーを回避していることが特徴です。
 
@@ -460,9 +477,9 @@ impl Render for CounterDisplay {
 }
 ```
 
-`Entity<Counter>`が`CounterDisplay`に入っていますが、`Counter`自体は`Render`ではありません。Entityはあくまでgpuiが状態を保存するための仕組みなので必ずしも`Entity<T>`の`T`が`Render`を実装しなければいけないわけではないのです。
+`Entity<Counter>`が`CounterDisplay`に入っていますが、`Counter`は`Render`を実装していないため、`Entity<Counter>`はViewではありません。Entityはあくまでgpuiが状態を保存するための仕組みなので必ずしも`Entity<T>`の`T`が`Render`を実装しなければいけないわけではないのです。
 
-さて、そのような`Counter`の値を表示する`CounterDisplay`は当然`Counter`のステートに依存するわけですが、`cx.notify()`は自身のEntityのアップデートを行うだけです。
+さて、そのような`Counter`の値を表示する`CounterDisplay`は当然`Counter`のステートに依存するわけですが、`cx.notify()`は自身のEntityのアップデートを行うだけあり、あくまで`Entity<Counter>`と`Entity<CounterDisplay>`は別の`Entity`であるため、`Counter`でnotifyしても`CounterDisplay`には伝わりません。
 そこで使用できるのが`cx.observe`です。これを用いることで、他の`Entity`で`cx.notify()`が実行された際の処理を記述できます。`CounterDisplay`では`Counter`の更新時に自身をnotifyすることで表示を更新しています。
 また、最後に`.detach()`が付いているのは、`cx.observe()`から返される`Subscription`はドロップ時に監視を解除するからです。本来は`CounterDisplay`の中にこの値を保存しておくべきですが、今回は便宜上`.deatch()`することで、`new`の後にドロップしてもobserve処理を継続します。
 
