@@ -116,10 +116,49 @@ sudo cp /usr/lib/pam.d/polkit-1 .
 
 これで、GUIでの特権認証時に顔認証できるようになる。
 
+### 「Error executing command as another user: Not authorized」と出て認証できない場合
+
+最近polkitとhowdyの相性問題が発生し、↑の手順だとエラーが発生するようになった。
+
+@[card](https://github.com/boltgolt/howdy/issues/1077)
+
+このような場合は、上のissueに記載されている通り、
+
+```
+sudo systemctl edit polkit-agent-helper@.service 
+```
+
+を実行したエディタで
+
+```
+[Service]
+PrivateDevices=no
+DeviceAllow=char-video4linux rw
+DeviceAllow=/dev/uinput rw
+```
+
+を追記し、
+
+```
+sudo systemctl enable --now polkit-agent-helper.socket
+```
+
+を実行する。
+
 ## KDE(ロック解除)
 
-次に、KDEのロック解除を設定する。これはKDEから明示的にロックした場合に用いられるものであり、SDDMなどのディスプレイマネージャによって行われる初回ロック解除時とは違うものであることに注意。
+次に、KDEのロック解除(kscreenlocker)を設定する。これはKDEから明示的にロックした場合に用いられるものであり、SDDMなどのディスプレイマネージャによって行われる初回ロック解除時とは違うものであることに注意。
 これも先程と同様に`pam.d`フォルダに`kde`というファイルがあるはずなのでそれを同じく編集するだけ。
+
+### 追記
+
+howdyでkscreenlockerを使用するとkscreenlockerが応答不能になることがあった。
+
+@[card](https://github.com/boltgolt/howdy/issues/551)
+
+@[card](https://github.com/boltgolt/howdy/issues/716)
+
+このあたりが関係ありそうだが正直よくわからない
 
 ## SDDM(非推奨)
 

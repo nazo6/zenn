@@ -172,6 +172,22 @@ Raspberry Pi Zero 2W向けのPCBを現在設計しているが、Pi Zero 2Wだ�
 
 - RISC-Vなのでまあ…
 
+# 追記(26/2/3)
+
+## Luckfox Pico Zero
+
+| 項目   | 内容              |
+| ---- | --------------- |
+| SoC  | RV1106G3, Arm   |
+| 発売   | 2025/08         |
+| メモリ  | 256MB?          |
+| 無線   | BT/Wifi(技適無さそう) |
+| 消費電力 |                 |
+| 値段   | $30             |
+
+- <https://www.luckfox.com/Luckfox-Pico-Zero>
+- GPUがないのが特徴
+
 # 結論
 
 技適を取っているもので考えると使えそうなのはオリジナルのPi Zero、Pi Zero 2WかRadxa Zero 3Wぐらいのよう。
