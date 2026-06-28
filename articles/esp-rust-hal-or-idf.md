@@ -12,7 +12,7 @@ ESP32で使えるRust向けのHALは現在2種類開発されています。
 
 @[card](https://github.com/esp-rs/esp-idf-svc)
 
-@[card](https://github.com/esp-rs/esp-ha)
+@[card](https://github.com/esp-rs/esp-hal)
 
 1つ目は[esp-idf-svc/hal](https://github.com/esp-rs/esp-idf-svc)です。こちらはEspressifによるESP-IDFというフレームワークをRustでも使えるようにしたものです。
 2つ目は[esp-hal](https://github.com/esp-rs/esp-hal)です。これはベアメタルなRust向けのライブラリで、こちらの方が開発が活発です。というかesp-idf-svc/halの方はほとんど開発が止まっており、公式にはこちらを使うことが推奨されています。
