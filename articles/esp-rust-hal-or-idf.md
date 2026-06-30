@@ -20,13 +20,13 @@ ESP32で使えるRust向けのHALは現在2種類開発されています。
 # std vs no\_std
 
 esp-idf-svcの一番大きな特徴として、Rustの`std`が使えることが挙げられます。通常組み込みRustではOSの機能に依存する`std`標準ライブラリは使えず、`core`と呼ばれるライブラリを使います。しかしながらesp-idf-svcでは、IDFの機能を用いて標準ライブラリを実装しています。そのため、タスクを並行実行したいなら`std::thread::spawn`を呼び出すだけでできてしまいます。
-その他にもWiFiやBLEもIDFの機能を使って比較的用意に実装することが可能です。
+その他にもWiFiやBLEもIDFの機能を使って比較的容易に実装することが可能です。
 
 一方、esp-halは`core`のみが使える`no_std`環境で使用することが想定されています。では並行タスクなどはどうするのか、RTOSは使うのかという話になりますが、Rustでは[embassy](https://github.com/embassy-rs/embassy)というフレームワークを使うのが一般的です。これはRustの言語機能である非同期機能を使ってタスクを実行します。Embassyについて詳しくは[この記事](https://zenn.dev/nazo6/articles/keyball-embassy-rp2040)などを参考にしてください。慨して非常に書きやすく良いフレームワークです。
 
 # どちらを使うべきなのか
 
-では、どちらを使うべきなのかという話になりますが、「基本的には」esp-halを使うべきだと思います。esp-idf-svc/halはstdが使えるので一見初心者向けのような気もしますが、以下のような気に入らない点があります。
+では、どちらを使うべきなのかという話になりますが、「基本的には」esp-halを使うべきだと思います。esp-idf-svc/halはstdが使えるので一見初心者向けのような気もしますが、以下のような標準的なRust環境から外れたハマりポイントがあり、逆に苦労する可能性もあります。
 
 - svc/halでサポートされている機能ならば良いが、結局のところFFIなので時には[esp-idf-sys](https://github.com/esp-rs/esp-idf-sys)を使ってunsafeなコードを書く必要がある
 - トラブル時にIDFの方を疑う必要がある
@@ -36,7 +36,7 @@ esp-idf-svcの一番大きな特徴として、Rustの`std`が使えることが
 - esp-halよりもasyncサポートが弱い
   - 基本的にesp-halはembassyを念頭に置いて開発されているため、asyncサポートが充実
   - 一方、esp-idf-halでは例えばSPIは非同期ドライバが実装されているがI2Cにはされていない
-- いくらRTOS上とは言え結局MCU上なのだから変にstdによる抽象化をすると逆に何が起こっているか分かりづらい
+- 結局MCU上なのだから変にstdによる抽象化が入っていると逆に何が起こっているか分かりづらい
 
 一方、現状では「esp-halではできないこと」が存在しているのも事実であり、このような場合にはIDF系を使ったほうが良いです。
 
@@ -46,9 +46,11 @@ esp-idf-svcの一番大きな特徴として、Rustの`std`が使えることが
   - ESP-IDFでは、esp-halには(まだ)実装されていない自動ライトスリープや動的周波数調整などの高度な電力管理機能が実装されている
   - 特に無線を用いる場合には差が顕著に出る
 - Rustエコシステムが発達していない機能を使いたい場合
-  - 例えば、SDカードを使いたい場合には、Rustでも[embedded-fatfs](https://github.com/MabezDev/embedded-fatfs)などの実装があるにはあるが、esp-idf-sysで提供されている`std::fs`から使える仮想ファイルシステムのほうが使い勝手もパフォーマンスも良い
+  - 例えば、SDカードを使いたい場合には、Rustでも[embedded-fatfs](https://github.com/MabezDev/embedded-fatfs)などの実装があるにはあるが、esp-idf-sysで提供されている`std::fs`から使える仮想ファイルシステムのほうがパフォーマンスは良いし、安定性も高い
 - [ESP Component Registry](https://components.espressif.com/)を使いたい場合
   - esp-idf-svcにはESP Component Registryを使うための機能があり、自動でライブラリを取得してバインディングの生成まで行ってくれる
+
+全体的に、何かあった時のワークアラウンドが少なくとも存在するという点ではIDFのほうが良いと言えます。例えばesp-halで使うembassyも`std` featureを有効にすればIDFで使えますし、asyncサポートが弱い問題も、スレッドで何とかすることは一応可能です。
 
 このようにまだ機能面ではIDF系が勝っているのは事実ですが、esp-halはEspressif公式が関与するようになったこともあってか最近急速に開発が進んでいます。例えば無線系だとBLEは[trouble](https://github.com/embassy-rs/trouble)、WiFiは[embassy-net](https://docs.embassy.dev/embassy-net/0.9.0/default/index.html)などのRust製スタックを使うことができます。なので将来的にはこれらのesp-halでできないことも解消されるのではないかと期待しています。
 
